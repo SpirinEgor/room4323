@@ -3,11 +3,12 @@ from django.utils import six
 
 
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
-    @staticmethod
-    def makeHashValue(user, timestamp):
+
+    def _make_hash_value(self,user, timestamp):
         return (
             six.text_type(user.pk) + six.text_type(timestamp) +
-            six.text_type(user.profile.email_confirmed)
+            six.text_type(user.email)
         )
 
 accountActivationToken = AccountActivationTokenGenerator()
+

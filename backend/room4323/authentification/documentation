@@ -1,0 +1,6 @@
+
+1)api/authentification/auth?login=login&password=pass  -  return json object : {'code':code ,'message':'success/failed'}
+2)api/authentification/logout/ - return json object : {'code': "",'message':'success'}
+3)api/authentification/signup/ - return json object : {"field": [{"code": "code"},"message": "somemessage."],// if fiel
+d none then ok need confirm email
+

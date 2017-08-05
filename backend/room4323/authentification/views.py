@@ -1,12 +1,13 @@
-from backend.authentification.models import *
+from JsonDictConvertation import *
+from authentification.models import *
+from decorators import json_and_post_required
 from django.contrib.auth import logout, login
+from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import _urlparse as urlparse, urlsafe_base64_decode, urlsafe_base64_encode
-from backend.authentification.tokens import *
-from django.http import HttpResponse
-from backend.JsonDictConvertation import *
-from backend.decorators import json_and_post_required
+
+from authentification.tokens import *
 
 # NOTE MAKE domain const
 domain = '127.0.0.1:8000'
@@ -19,6 +20,7 @@ def loginUser(request):
     if form.is_valid():
         user = form.save()
         if user is not None:
+            print("dddddddddddddd")
             login(request, user)
             return HttpResponse(convertFromDictToJson({'code': '', 'message': 'success'}),
                                 content_type='application/json')

@@ -1,0 +1,23 @@
+
+
+
+Authetification return : json object
+api/authentification/auth?login=login&password=pass - {'code':'' ,'message':'success/failed'}
+api/authentification/logout/                        - {'code': "",'message':'success'}
+api/authentification/signup/                        - {"field": [{"code": "code"},"message": "somemessage."]}/{'code': "", 'message': 'Activate Your Account'}
+
+
+
+Article return :json object
+
+api/article/create/ - {'code':'','message':'created'}/login_required_json/json_and_post_required/{"field": [{"code": "code"},"message": "somemessage."]
+api/article/delete/ - {'message': 'article DoesNotExist', "code": ''}/{'message': 'deleted', "code": ''}
+api/aricle/slug/edit - staff_member_required_json/{"field": [{"code": "code"},"message": "somemessage."]}/{'message': 'edited', 'code': ''}/{'text': 'this is text', 'title': 'sometitle'}
+
+
+
+
+decorators:
+login_required_json        {'code': '', 'message': 'login_required'}
+staff_member_required_json {'code': '', 'message': 'no_permission'}
+json_and_post_required     {'code': '', 'message': 'Wrong content_type'/'Wrong request.method'}

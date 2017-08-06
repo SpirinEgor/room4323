@@ -83,7 +83,7 @@ class Comment(models.Model):
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        exclude = ['rating', 'author', 'slug', 'created', 'updated','approved']  # id too
+        exclude = ['rating', 'author', 'slug', 'created', 'updated','approved','id']
 
 
 class CommentForm(ModelForm):

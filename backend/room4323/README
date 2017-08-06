@@ -11,7 +11,7 @@ api/authentification/signup/                        - {"field": [{"code": "code"
 Article return :json object
 
 api/article/create/ - {'code':'','message':'created'}/login_required_json/json_and_post_required/{"field": [{"code": "code"},"message": "somemessage."]
-api/article/delete/ - {'message': 'article DoesNotExist', "code": ''}/{'message': 'deleted', "code": ''}
+api/article/slug/delete/ - {'message': 'article DoesNotExist', "code": ''}/{'message': 'deleted', "code": ''}
 api/aricle/slug/edit - staff_member_required_json/{"field": [{"code": "code"},"message": "somemessage."]}/{'message': 'edited', 'code': ''}/{'text': 'this is text', 'title': 'sometitle'}
 
 

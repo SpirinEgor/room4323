@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import _urlparse as urlparse, urlsafe_base64_decode, urlsafe_base64_encode
-
 from authentification.tokens import *
 
 # NOTE MAKE domain const
@@ -20,17 +19,12 @@ def loginUser(request):
     if form.is_valid():
         user = form.save()
         if user is not None:
-            print("dddddddddddddd")
             login(request, user)
             return HttpResponse(convertFromDictToJson({'code': '', 'message': 'success'}),
                                 content_type='application/json')
     return HttpResponse(convertFromDictToJson({'code': '', 'message': 'failed'}), content_type='application/json')
 
 
-from django.views.decorators.csrf import csrf_exempt
-
-
-@csrf_exempt
 @json_and_post_required
 def signupUser(request):
     form = SignUpForm(convertFromJsonToDict(request))
@@ -80,11 +74,3 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse(convertFromDictToJson({'code': "", 'message': 'Invalid account or link'}),
                             content_type='application/json')
-
-# import  requests
-# def send(request):
-#    response = requests.post('http://127.0.0.1:8000/api/authentification/signup/',
-#                             json={"key": "value", 'password': 'sdjgdsg4534','username':'dfjsdkkjflas3','email':'shdnmgidsjhg@mail.ru' })
-#    return HttpResponse(convertFromDictToJson({'code': '', 'message': 'success'}), content_type='application/json')
-#
-#

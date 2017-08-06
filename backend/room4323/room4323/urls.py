@@ -15,13 +15,12 @@ Including another URLconf
 """
 
 from authentification.views import activate, loginUser, \
-    signupUser, logoutUser  # ,send
+    signupUser, logoutUser
 from django.conf.urls import url
 from django.contrib import admin
-from articles.views import  *
+from articles.views import *
 
 urlpatterns = [
-    # url(r'^send$', send),
     url(r'^admin/', admin.site.urls),
     url(r'^api/authentification/auth$', loginUser, name='login'),
     url(r'^api/authentification/logout/$', logoutUser, name='logout'),

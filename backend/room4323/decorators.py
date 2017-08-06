@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-
+from JsonDictConvertation import *
 
 def login_required_json(func):
     def wrap(request, *args, **kwargs):
@@ -28,6 +28,7 @@ def staff_member_required_json(func):
 
 
 def json_and_post_required(func):
+
     def wrap(request, *args, **kwargs):
         if request.content_type != 'application/json':
             return HttpResponse(convertFromDictToJson({'code': '', 'message': 'Wrong content_type'}),

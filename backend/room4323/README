@@ -5,14 +5,25 @@ Authetification return : json object
 api/authentification/auth?login=login&password=pass - {'code':'' ,'message':'success/failed'}
 api/authentification/logout/                        - {'code': "",'message':'success'}
 api/authentification/signup/                        - {"field": [{"code": "code"},"message": "somemessage."]}/{'code': "", 'message': 'Activate Your Account'}
-
+api/authentification/activate/uidb64/token/   -       {'code': "", 'message': 'Account activated'}/{'code': "", 'message': 'Invalid account or link'}
 
 
 Article return :json object
 
 api/article/create/ - {'code':'','message':'created'}/login_required_json/json_and_post_required/{"field": [{"code": "code"},"message": "somemessage."]
 api/article/slug/delete/ - {'message': 'article DoesNotExist', "code": ''}/{'message': 'deleted', "code": ''}
-api/aricle/slug/edit - staff_member_required_json/{"field": [{"code": "code"},"message": "somemessage."]}/{'message': 'edited', 'code': ''}/{'text': 'this is text', 'title': 'sometitle'}
+api/aricle/slug/edit/ - staff_member_required_json/{"field": [{"code": "code"},"message": "somemessage."]}/{'message': 'edited', 'code': ''}/{'text': 'this is text', 'title': 'sometitle'}
+api/article/slug>[-\w\d]/get - login_required_json/404 error/{'message': 'On moderation', 'code': ''}/{'title':'some','text':'text','author':'username','rating':float}
+api/article/slug/rate/[1-5] - 404error/login_required_json/{'message': 'On moderation', 'code': ''}/{'message': 'You voted!', "code": ''}/{'message': 'You already voted', "code": ''}
+
+api/article/slug/comment     {}
+api/article/slug/comment_id/like  {}
+api/article/slug/comment_id/edit  {}
+api/article/slug/comment_id/delete {}
+
+api/moderation/(?P<slug>[-\w\d]+)/approve -  staff_member_required_json/{'message': 'approved', "code": ''}/404error
+api/moderation/all/ - staff_member_required_json/[{'fields': {'author': id, 'text': 'this is text', 'slug': 'second'}, 'model': 'articles.article', 'pk': 2}, {'fields': {'author': id, 'text': 'this is text', 'slug': 'third'}, 'model': 'articles.article', 'pk': 3}]
+
 
 
 

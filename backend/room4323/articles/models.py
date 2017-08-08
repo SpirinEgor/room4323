@@ -52,7 +52,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, default=1)
+    author = models.ForeignKey(User)
     article = models.ForeignKey(Article)
     comment = models.TextField(max_length=2500, blank=False)
     created = models.DateTimeField(editable=False, null=True)
@@ -89,7 +89,7 @@ class ArticleForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        exclude = ['author', 'article', 'created', 'like', 'updated']
+        exclude = ['author', 'article', 'created', 'likes', 'updated']
 
 
 class Like(models.Model):

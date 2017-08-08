@@ -128,5 +128,29 @@ class TestArticlesApp(TestCase):
         self.assertEqual({'rating': 3.5, 'author': 'moderator', 'text': 'this is text', 'title': 'helloworld'},
                          response.json())
 
+    def testCommentArticle(self):
+        self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
+        python_dict = {'text': 'this is text', 'title': 'helloworld'}
+        self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+                         content_type='application/json')
+        self.client.get('http://127.0.0.1:8000/api/moderation/helloworld/approve')
+        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/comment',
+                                    json.dumps({'comment': 'comment'}),
+                                    content_type='application/json')
+        self.assertEqual({'message': 'created', 'code': ''}, response.json())
+        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/comment',
+                                    json.dumps({'comment': 'comment'}),
+                                    content_type='application/json')
+        self.assertEqual({'message': 'created', 'code': ''}, response.json())
+
+    def testEditComment(self):
+        pass
+
+    def testDeleteComment(self):
+        pass
+
+    def testLikeComment(self):
+        pass
 
 
+##also need check get all comments best and latest/ also articles

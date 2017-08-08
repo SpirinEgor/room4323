@@ -87,6 +87,9 @@ def rateArticle(request, slug, score):
                         content_type='application/json')
 
 
+def getNewArticles(request):
+    Article.object.latest()
+
 @staff_member_required_json
 def approveArticle(request, slug):
     article = get_object_or_404(Article, slug=slug)

@@ -24,11 +24,10 @@ class Article(models.Model):
     rating = models.FloatField(default=0.0)
     author = models.ForeignKey(User, default=1, verbose_name="Author")  # 1-admin
     slug = models.SlugField(default="", blank=True, max_length=60)
-    approved =  models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
 
-
-    def getAllComments(self):
-        return self.comment_set.all().order_by('-id')
+    def getAllCommentsDict(self):
+        return self.comment_set.all()
 
     def getPopularComments(self, quantity=10):
         comments = self.comment_set.all()
@@ -46,9 +45,18 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    def toDict(self):
+        dict = {}
+        dict['author'] = self.author.username
+        dict['title'] = self.title
+        dict['text'] = self.text
+        dict['created'] = self.created.isoformat(' ')
+        dict['updated'] = self.updated.isoformat(' ')
+        dict['rating'] = self.rating
+        return dict
+
     class Meta:
         verbose_name_plural = 'Articles'
-
 
 
 class Comment(models.Model):
@@ -66,8 +74,17 @@ class Comment(models.Model):
         return super(Comment, self).save(*args, **kwargs)
 
     @property
-    def countLikes(self):
+    def countLikes(self):  # too long. changed
         return self.like_set.all().count()
+
+    def toDict(self):
+        dict = {}
+        dict['author'] = self.author.username
+        dict['likes'] = self.likes
+        dict['comment'] = self.comment
+        dict['created'] = self.created.isoformat(' ')
+        dict['updated'] = self.updated.isoformat(' ')
+        return dict
 
     class Meta:
         verbose_name_plural = 'Comments'
@@ -79,17 +96,16 @@ class Comment(models.Model):
             return self.comment[1:60]
 
 
-
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        exclude = ['rating', 'author', 'slug', 'created', 'updated','approved','id']
+        exclude = ['rating', 'author', 'slug', 'created', 'updated', 'approved', 'id']
 
 
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        exclude = ['author', 'article', 'created', 'likes', 'updated']
+        exclude = ['author', 'article', 'created', 'likes', 'updated','id']
 
 
 class Like(models.Model):

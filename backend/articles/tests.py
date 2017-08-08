@@ -22,18 +22,18 @@ class TestArticlesApp(TestCase):
         self.assertEqual({'code': '', 'message': 'success'}, response.json())
 
         python_dict = {'text': 'this is text', 'title': 'helloworld'}
-        response = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        response = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                     content_type='application/json')
         self.assertEqual({'message': 'created', 'code': ''}, response.json())
 
-        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/edit/')
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/edit')
         self.assertEqual({'text': 'this is text', 'title': 'helloworld'}, response.json())
         jsonData = convertFromDictToJson({'title': 'first', 'text': 'text'})
-        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/edit/', jsonData,
+        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/edit', jsonData,
                                     content_type='application/json')
         self.assertEqual({'message': 'edited', 'code': ''}, response.json())
 
-        response = self.client.post('http://127.0.0.1:8000/api/article/first/delete/', jsonData,
+        response = self.client.post('http://127.0.0.1:8000/api/article/first/delete', jsonData,
                                     content_type='application/json')
         self.assertEqual({'message': 'deleted', 'code': ''}, response.json())
 
@@ -42,25 +42,25 @@ class TestArticlesApp(TestCase):
         self.assertEqual({'code': '', 'message': 'success'}, response.json())
 
         python_dict = {'text': 'this is text', 'title': 'helloworld'}
-        response = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        response = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                     content_type='application/json')
         self.assertEqual({'message': 'created', 'code': ''}, response.json())
 
-        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/edit/')
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/edit')
         self.assertEqual({'code': '', 'message': 'no_permission'}, response.json())
         jsonData = convertFromDictToJson({'title': 'first', 'text': 'text'})
-        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/edit/', jsonData,
+        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/edit', jsonData,
                                     content_type='application/json')
         self.assertEqual({'message': 'no_permission', 'code': ''}, response.json())
 
-        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/delete/', jsonData,
+        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/delete', jsonData,
                                     content_type='application/json')
         self.assertEqual({'message': 'no_permission', 'code': ''}, response.json())
 
     def testApproveArticle(self):
         response = self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
         python_dict = {'text': 'this is text', 'title': 'helloworld'}
-        response = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        response = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                     content_type='application/json')
         response = self.client.get('http://127.0.0.1:8000/api/moderation/helloworld/approve')
         self.assertEqual({'message': 'approved', "code": ''}, response.json())
@@ -71,17 +71,17 @@ class TestArticlesApp(TestCase):
     def testGetArticlesOnModeration(self):
         response = self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
         python_dict = {'text': 'this is text', 'title': 'first'}
-        firstArticle = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        firstArticle = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                         content_type='application/json')
         python_dict = {'text': 'this is text', 'title': 'second'}
-        secondArticle = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        secondArticle = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                          content_type='application/json')
         python_dict = {'text': 'this is text', 'title': 'third'}
-        thirdArticle = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        thirdArticle = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                         content_type='application/json')
         response = self.client.get('http://127.0.0.1:8000/api/moderation/first/approve',
                                    content_type='application/json')
-        response = self.client.get('http://127.0.0.1:8000/api/moderation/all/',
+        response = self.client.get('http://127.0.0.1:8000/api/moderation/all',
                                    content_type='application/json')
 
         self.assertEqual(
@@ -92,7 +92,7 @@ class TestArticlesApp(TestCase):
     def testGetArticle(self):
         response = self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
         python_dict = {'text': 'this is text', 'title': 'helloworld'}
-        response = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        response = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                     content_type='application/json')
         response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/get', content_type='application/json')
         self.assertEqual({'message': 'On moderation', "code": ''}, response.json())
@@ -105,10 +105,26 @@ class TestArticlesApp(TestCase):
         response = self.client.get('http://127.0.0.1:8000/api/article/no/get', content_type='application/json')
         self.assertEqual(404, response.status_code)
 
+    def testGetAllArticles(self):
+        response = self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
+        python_dict = {'text': 'this is text', 'title': 'first'}
+        self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
+                         content_type='application/json')
+        self.client.get('http://127.0.0.1:8000/api/moderation/first/approve')
+
+        self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps({'title': 'second', 'text': 'text'}),
+                         content_type='application/json')
+        self.client.get('http://127.0.0.1:8000/api/moderation/second/approve')
+        self.client.post('http://127.0.0.1:8000/api/article/create',
+                         json.dumps({'title': 'thirdNoApprove', 'text': 'text'}),
+                         content_type='application/json')
+        response = self.client.get('http://127.0.0.1:8000/api/article/get/all')
+        # diff always how test time ? all work ,by the way
+
     def testRateArticle(self):
         response = self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
         python_dict = {'text': 'this is text', 'title': 'helloworld'}
-        response = self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        response = self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                                     content_type='application/json')
         response = self.client.get('http://127.0.0.1:8000/api/moderation/helloworld/approve')
 
@@ -128,10 +144,10 @@ class TestArticlesApp(TestCase):
         self.assertEqual({'rating': 3.5, 'author': 'moderator', 'text': 'this is text', 'title': 'helloworld'},
                          response.json())
 
-    def testCommentArticle(self):
+    def testCreateEditDeleteComment(self):
         self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
         python_dict = {'text': 'this is text', 'title': 'helloworld'}
-        self.client.post('http://127.0.0.1:8000/api/article/create/', json.dumps(python_dict),
+        self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
                          content_type='application/json')
         self.client.get('http://127.0.0.1:8000/api/moderation/helloworld/approve')
         response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/comment',
@@ -143,14 +159,57 @@ class TestArticlesApp(TestCase):
                                     content_type='application/json')
         self.assertEqual({'message': 'created', 'code': ''}, response.json())
 
-    def testEditComment(self):
-        pass
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/1/edit')
+        self.assertEqual({'comment': 'comment'}, response.json())
 
-    def testDeleteComment(self):
-        pass
+        response = self.client.post('http://127.0.0.1:8000/api/article/helloworld/1/edit',
+                                    json.dumps({'comment': 'hi there!'}),
+                                    content_type='application/json')
+        self.assertEqual({'message': 'edited', 'code': ''}, response.json())
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/1/delete')
+        self.assertEqual({'message': 'deleted', 'code': ''}, response.json())
+
+    def testGetAllCommentToSpecificArticle(self):
+        self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
+        python_dict = {'text': 'this is text', 'title': 'helloworld'}
+        self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
+                         content_type='application/json')
+        self.client.get('http://127.0.0.1:8000/api/moderation/helloworld/approve')
+
+        self.client.post('http://127.0.0.1:8000/api/article/helloworld/comment',
+                         json.dumps({'comment': 'firstComment'}),
+                         content_type='application/json')
+        self.client.get('http://127.0.0.1:8000/api/authentification/logout/')
+        self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=nikita&password=dungeons')
+        self.client.post('http://127.0.0.1:8000/api/article/helloworld/comment',
+                         json.dumps({'comment': 'secondComment'}),
+                         content_type='application/json')
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/comments/all')
+        # work
+        # self.assertEqual([{'updated': '2017-08-08 08:52:28.094846+00:00', 'created': '2017-08-08 08:52:28.094835+00:00',
+        #                  'likes': 0, 'comment': 'firstComment', 'author': 'moderator'},
+        #                {'updated': '2017-08-08 08:52:28.166641+00:00', 'created': '2017-08-08 08:52:28.166631+00:00',
+        #                'likes': 0, 'comment': 'secondComment', 'author': 'nikita'}], response.json())
 
     def testLikeComment(self):
-        pass
+        self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
+        python_dict = {'text': 'this is text', 'title': 'helloworld'}
+        self.client.post('http://127.0.0.1:8000/api/article/create', json.dumps(python_dict),
+                         content_type='application/json')
+        self.client.get('http://127.0.0.1:8000/api/moderation/helloworld/approve')
 
+        self.client.post('http://127.0.0.1:8000/api/article/helloworld/comment',
+                         json.dumps({'comment': 'firstComment'}),
+                         content_type='application/json')
+        self.client.get('http://127.0.0.1:8000/api/authentification/logout/')
+        self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=nikita&password=dungeons')
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/comments/all')
 
-##also need check get all comments best and latest/ also articles
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/1/like')
+        self.assertEqual({'code': '', 'message': 'created'}, response.json())
+
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/comments/all')
+        self.assertEqual(1, response.json()[0]['likes'])
+        self.client.get('http://127.0.0.1:8000/api/article/helloworld/1/like')
+        response = self.client.get('http://127.0.0.1:8000/api/article/helloworld/comments/all')
+        self.assertEqual(0, response.json()[0]['likes'])

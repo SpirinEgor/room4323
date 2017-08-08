@@ -87,8 +87,11 @@ def rateArticle(request, slug, score):
                         content_type='application/json')
 
 
-def getNewArticles(request):
-    Article.object.latest()
+def getAllArticles(request):
+    dictionaries = [obj.toDict() for obj in Article.object.filter(approved=True)]
+    return HttpResponse(convertFromDictToJson(dictionaries),
+                        content_type='application/json')
+
 
 @staff_member_required_json
 def approveArticle(request, slug):
@@ -131,14 +134,13 @@ def editComment(request, slug, comment_id):
     if not article.approved:
         return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
                             content_type='application/json')
-
     comment = get_object_or_404(Comment, id=comment_id)
     if not request.user == comment.author:
         return HttpResponse(convertFromDictToJson({'code': '', 'message': 'PermissionError'}),
                             content_type='application/json')
     article = comment.article
     if request.method == "POST":
-        form = CommentForm(request, instance=comment)
+        form = CommentForm(convertFromJsonToDict(request), instance=comment)
         errors = form.errors.as_json()
         if form.is_valid():
             comment = form.save(commit=False)
@@ -162,11 +164,16 @@ def likeComment(request, slug, comment_id):
     if not article.approved:
         return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
                             content_type='application/json')
-    newLike, created = Like.objects.get_or_create(user=request.user, comment_id=comment_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    newLike, created = Like.objects.get_or_create(user=request.user, comment=comment)
     if not created:
+        comment.likes = comment.likes - 1
+        comment.save()
         newLike.delete()
-        return HttpResponse({'message': 'deleted', 'code': ''}, content_type='application/json')
-    return HttpResponse({'message': 'created', 'code': ''}, content_type='application/json')
+        return HttpResponse(convertFromDictToJson({'message': 'deleted', 'code': ''}), content_type='application/json')
+    comment.likes += 1
+    comment.save()
+    return HttpResponse(convertFromDictToJson({'message': 'created', 'code': ''}), content_type='application/json')
 
 
 @login_required_json
@@ -176,8 +183,15 @@ def deleteComment(request, slug, comment_id):
         return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
                             content_type='application/json')
     comment = get_object_or_404(Comment, id=comment_id)
-    if not comment.author == request.user or not request.user.is_staff:
+    if (not comment.author == request.user) and (not request.user.is_staff):
         return HttpResponse(convertFromDictToJson({'code': '', 'message': 'PermissionError'}),
                             content_type='application/json')
     comment.delete()
-    return HttpResponse({'message': 'deleted', 'code': ''}, content_type='application/json')
+    return HttpResponse(convertFromDictToJson({'message': 'deleted', 'code': ''}), content_type='application/json')
+
+
+def getAllComments(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+    dictionaries = [obj.toDict() for obj in article.comment_set.all()]
+    return HttpResponse(convertFromDictToJson(dictionaries),
+                        content_type='application/json')

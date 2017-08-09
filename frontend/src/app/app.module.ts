@@ -1,11 +1,11 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent }  from './app.component';
+import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
 
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ AppComponent ],
-  bootstrap:    [ AppComponent ]
+  declarations: [ AllAlgorithmsComponent ],
+  bootstrap:    [ AllAlgorithmsComponent ]
 })
 export class AppModule { }

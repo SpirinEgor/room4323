@@ -1,14 +1,6 @@
 .mdl-layout__header {
   background: url('./images/header.jpg') center / cover;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.content {
-  flex: 1 0 auto;
-}
-.footer {
-  flex: 0 0 auto;
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+  padding-right: 0;
 }

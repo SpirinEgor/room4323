@@ -8,37 +8,62 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   </head>
   <body>
-    <header class="mdl-layout__header mdl-layout__header--transparent">
-      <div class="mdl-layout__header-row">
+    <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
+      <header class="mdl-layout__header mdl-layout__header--waterfall">
+        <!-- Top row, always visible -->
+        <div class="mdl-layout__header-row">
         <!-- Title -->
-        <span class="mdl-layout-title">room4323</span>
-        <!-- Add spacer, to align navigation to the right -->
-        <div class="mdl-layout-spacer"></div>
-        <!-- Navigation -->
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">News</a>
-          <a class="mdl-navigation__link" href="">Algoritms</a>
-        </nav>
-      </div>
-    </header>
+          <span class="mdl-layout-title">room4323</span>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                      mdl-textfield--floating-label mdl-textfield--align-right">
+            <label class="mdl-button mdl-js-button mdl-button--icon"
+                    for="waterfall-exp">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" name="sample"
+                    id="waterfall-exp">
+            </div>
+          </div>
+        </div>
+        <!-- Bottom row, not visible on scroll -->
+        <div class="mdl-layout__header-row">
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="#">Algorithms</a>
+            <a class="mdl-navigation__link" href="#">Sign in</a>
+          </nav>
+        </div>
+      </header>
 
-    <all-algorithms class="content">
-      Loading AppComponent content here ...
-    </all-algorithms>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <!-- Your content goes here -->
+          <all-algorithms class="content">
+          Loading AppComponent content here ...
+          </all-algorithms>
 
-    <div class="footer">
-    <footer class="mdl-mini-footer">
-      <div class="mdl-mini-footer__left-section">
-        <div class="mdl-logo">Powered by</div>
-          <ul class="mdl-mini-footer__link-list">
-            <li><a href="#">Egor Spirin</a></li>
-            <li><a href="#">Nikita Mishin</a></li>
-          </ul>
-      </div>
-    </footer>
+          <div class="footer">
+            <footer class="mdl-mini-footer">
+              <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo">Powered by</div>
+                <ul class="mdl-mini-footer__link-list">
+                  <li><a href="#">Egor Spirin</a></li>
+                  <li><a href="#">Nikita Mishin</a></li>
+                </ul>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </main>
     </div>
+
+
 
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>

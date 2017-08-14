@@ -42,7 +42,7 @@ urlpatterns = [
         name='deleteComment'),
     url(r'^api/article/(?P<slug>[-\w\d]+)/comments/all$', getAllComments, name='getAllComment'),
 
-    url(r'^api/moderation/(?P<slug>[-\w\d]+)/approve$', approveArticle, name='approveArticle'),
+    url(r'^api/moderation/approve$', approveArticle, name='approveArticle'),
     url(r'^api/moderation/all$', getArticlesOnModeration, name='getArticlesOnModeration')
 
 ]

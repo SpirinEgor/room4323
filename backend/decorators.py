@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from JsonDictConvertation import *
 
-def login_required_json(func):
+def loginRequiredJson(func):
     def wrap(request, *args, **kwargs):
         if not request.user.is_authenticated():
             return HttpResponse(
@@ -14,7 +14,7 @@ def login_required_json(func):
 
 
 # decorator
-def staff_member_required_json(func):
+def staffMemberRequiredJson(func):
     def wrap(request, *args, **kwargs):
         user = request.user
         if not (user.is_authenticated() and user.is_staff):
@@ -27,7 +27,7 @@ def staff_member_required_json(func):
     return wrap
 
 
-def json_and_post_required(func):
+def requiredJsonAndPost(func):
 
     def wrap(request, *args, **kwargs):
         if request.content_type != 'application/json':

@@ -1,11 +1,11 @@
 from JsonDictConvertation import *
 from authentification.models import *
-from decorators import json_and_post_required
+from decorators import requiredJsonAndPost
 from django.contrib.auth import logout, login
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
-from django.utils.http import _urlparse as urlparse, urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import  urlsafe_base64_decode, urlsafe_base64_encode
 from authentification.tokens import *
 
 # NOTE MAKE domain const
@@ -25,7 +25,7 @@ def loginUser(request):
     return HttpResponse(convertFromDictToJson({'code': '', 'message': 'failed'}), content_type='application/json')
 
 
-@json_and_post_required
+@requiredJsonAndPost
 def signupUser(request):
     form = SignUpForm(convertFromJsonToDict(request))
     errors = form.errors.as_json()
@@ -48,13 +48,6 @@ def signupUser(request):
 def logoutUser(request):
     logout(request)
     return HttpResponse(convertFromDictToJson({'code': '', 'message': 'success'}), content_type='application/json')
-
-
-def isSafeUrl(url):
-    result = urlparse(url)
-    if result.netloc is None or result.netloc == '' or not str(result.netloc) == str(domain):
-        return False
-    return True
 
 
 # email confirmation

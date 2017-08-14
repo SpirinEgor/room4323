@@ -1,0 +1,26 @@
+{
+    "Base": [
+        "Evklid",
+        "Eratosphen",
+        "Binary pow",
+        "Binary search"
+    ],
+    "Graph": [
+        "DFS",
+        "BFS",
+        "Dijkstra"
+    ],
+    "String": [
+        "Z-function",
+        "Knut-Morris-Pratt"
+    ],
+    "Data structure": [
+        "Segment tree",
+        "Cartesian tree",
+        "sqrt-decomposition"
+    ],
+    "Русский язык": [
+        "Алгоритм Эвклида",
+        "Дерево отрезков"
+    ]
+}

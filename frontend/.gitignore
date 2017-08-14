@@ -1,6 +1,2 @@
 node_modules/
-*.js
-*.js.map
-!systemjs-angular-loader.js
-!systemjs.config.extras.js
-!systemjs.config.js
+build/

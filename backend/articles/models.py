@@ -5,7 +5,12 @@ from django.template.defaultfilters import slugify
 
 
 class ArticleManager(models.Manager):
-    pass
+    def getAllArticlesTitle(self,approved):
+        querySet = self.filter(approved=approved)
+        dictionary = {}
+        for category in Category.objects.all():
+            dictionary[category.name] = list(querySet.filter(category=category).values_list('title', flat=True))
+        return dictionary
 
 
 class Category(models.Model):
@@ -14,11 +19,14 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
+    def __str__(self):
+        return self.name
+
 
 class Article(models.Model):
     objects = ArticleManager()
     title = models.CharField(max_length=90, unique=True, verbose_name='Title')
-    text = models.TextField(verbose_name="Article")
+    text = models.TextField(verbose_name="text")
     category = models.ForeignKey(Category)
     rating = models.FloatField(default=0.0)
     author = models.ForeignKey(User, default=1, verbose_name="Author")  # 1-admin
@@ -35,7 +43,7 @@ class Article(models.Model):
 
     def toDict(self):
         return dict(author=self.author.username, title=self.title, rating=self.rating,
-                    text=self.text, category=self.category.name,id=self.id)
+                    text=self.text, category=self.category.name, id=self.id)
 
     class Meta:
         verbose_name_plural = 'Articles'

@@ -1,7 +1,6 @@
 from decorators import *
-from django.forms import model_to_dict
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from articles.models import *
 from JsonDictConvertation import *
 
@@ -11,37 +10,48 @@ shortcuts = {'edited': {'message': 'edited', 'code': ''},
              'deleted': {'message': 'deleted', "code": ''},
              'onModeration': {'message': 'On moderation', 'code': ''},
              'approved': {'message': 'approved', "code": ''},
-             'permissionError': {'code': '', 'message': 'PermissionError'}
+             'permissionError': {'code': '', 'message': 'PermissionError'},
+             'wrongRequestMethod': {'message': 'Wrong request.Method', "code": ''},
+             'invalidCategory': {'message': 'Invalid Category', 'code': ''},
+             'wrongArguments': {'message': 'Wrong Arguments', 'code': ''}
              }
 
 
-# ok
+def HttpResponseJson(data):
+    return HttpResponse(convertFromDictToJson(data),
+                        content_type='application/json')
+
+
 @requiredJsonAndPost
 @staffMemberRequiredJson
 def editArticle(request, slug):
     article = get_object_or_404(Article, slug=slug)
     author = article.author
-    form = ArticleForm(convertFromJsonToDict(request), instance=article)
+    approved = article.approved
+    rating = article.rating
+    data = convertFromJsonToDict(request)
+    if not Category.objects.filter(name=data['category']).exists():
+        return HttpResponseJson(shortcuts['invalidCategory'])
+    form = ArticleForm(convertFromJsonToDict(data), instance=article)
     errors = form.errors.as_json()
     if form.is_valid():
         article = form.save(commit=False)
         article.author = author
+        article.category = Category.objects.get(name=data['category'])
+        article.rating = rating
+        article.approved = approved
         article.save()
-        return HttpResponse(convertFromDictToJson({'message': 'edited', 'code': ''}),
-                            content_type='application/json')  # or
+        return HttpResponseJson(shortcuts['edited'])
     else:
         return HttpResponse(errors, content_type='application/json')
 
 
-# ok
 @requiredJsonAndPost
 @loginRequiredJson
 def createArticle(request):
     data = convertFromJsonToDict(request)
     if not Category.objects.filter(name=data['category']).exists():
-        return HttpResponse(convertFromDictToJson({'message': 'Invalid Category', 'code': ''}),
-                            content_type='application/json')
-
+        return HttpResponseJson(shortcuts['invalidCategory'])
     form = ArticleForm(data)
     errors = form.errors.as_json()
     if form.is_valid():
@@ -49,93 +59,81 @@ def createArticle(request):
         article.author = request.user
         article.category = Category.objects.get(name=data['category'])
         article.save()
-        return HttpResponse(convertFromDictToJson({'message': 'created', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['created'])
     return HttpResponse(errors, content_type='application/json')
 
 
-# ok
 @staffMemberRequiredJson
 def deleteArticle(request, slug):
     try:
         instance = Article.objects.get(slug=slug)
         instance.delete()
     except Article.DoesNotExist:
-        return HttpResponse(convertFromDictToJson({'message': 'article DoesNotExist', "code": ''}),
-                            content_type='application/json')
-    return HttpResponse(convertFromDictToJson({'message': 'deleted', "code": ''}), content_type='application/json')
+        return HttpResponseJson(shortcuts['articleDoesNotExist'])
+    return HttpResponseJson(shortcuts['deleted'])
 
 
-# ok
-@loginRequiredJson
 def getArticle(request, slug):
     article = get_object_or_404(Article, slug=slug)
-    if not article.approved:
-        return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
-                            content_type='application/json')
-    return HttpResponse(convertFromDictToJson(article.toDict()),
-                        content_type='application/json')
+    if not (article.approved or request.user.is_staff):
+        return HttpResponseJson(shortcuts['onModeration']),
+    dictionary = {'article': article.toDict(), 'status': 'ok',
+                  'comments': list(article.comment_set.values('comment', 'author__username'))}
+    return HttpResponseJson(dictionary)
 
 
-# ok
 @loginRequiredJson
 def rateArticle(request, slug, score):
     article = get_object_or_404(Article, slug=slug)
     if not article.approved:
-        return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['onModeration'])
     newRate, created = Rate.objects.get_or_create(user=request.user, article=article)
     if created:
         count = int(article.rate_set.all().count())
         newRating = ((count - 1) * article.rating + float(score)) / count
         article.rating = newRating
         article.save()
-        return HttpResponse(convertFromDictToJson({'message': 'You voted!', "code": ''}),
-                            content_type='application/json')
-    return HttpResponse(convertFromDictToJson({'message': 'You already voted', "code": ''}),
-                        content_type='application/json')
+        return HttpResponseJson({'message': 'You voted!', "code": ''})
+    return HttpResponseJson({'message': 'You already voted', "code": ''})
 
 
-# #cache upgrade required
-def getAllArticles(request):
-    dictionaries = [obj.toDict() for obj in Article.objects.filter(approved=True)]
-    return HttpResponse(convertFromDictToJson(dictionaries),
-                        content_type='application/json')
+def getAllArticlesTitle(request):
+    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=True), 'status': 'ok'}
+    return HttpResponseJson(dictionary)
 
 
-# ok
 @staffMemberRequiredJson
 def approveArticle(request):
     if request.method != 'GET':
-        return HttpResponse(convertFromDictToJson({'message': 'Wrong request.Method', "code": ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['wrongRequestMethod'])
     id = int(request.GET.get('id'))
     result = int(request.GET.get('result'))
     article = get_object_or_404(Article, id=id)
+    if article.approved:
+        return HttpResponseJson({'message': 'Already approved', 'code': ''})
     if result == 1:
         article.approved = True
         article.save()
-        return HttpResponse(convertFromDictToJson({'message': 'approved', "code": ''}), content_type='application/json')
-    else:
+        return HttpResponseJson(shortcuts['approved'])
+    if result == 0:
         article.delete()
-        return HttpResponse(convertFromDictToJson({'message': 'deleted', "code": ''}), content_type='application/json')
+        return HttpResponseJson(shortcuts['deleted'])
+    return HttpResponseJson(shortcuts['wrongArguments'])
 
 
-# ok #cache upgrade required
+##id must be
 @staffMemberRequiredJson
 def getArticlesOnModeration(request):
-    dictionaries = [obj.toDict() for obj in Article.objects.filter(approved=False)]
-    return HttpResponse(convertFromDictToJson(dictionaries), content_type='application/json')
+    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=False), 'status': 'ok'}
+    return HttpResponseJson(dictionary)
 
 
-#
 @loginRequiredJson
 @requiredJsonAndPost
 def commentArticle(request, slug):
     article = get_object_or_404(Article, slug=slug)
     if not article.approved:
-        return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['onModeration'])
     form = CommentForm(convertFromJsonToDict(request))
     errors = form.errors.as_json()
     if form.is_valid():
@@ -143,23 +141,21 @@ def commentArticle(request, slug):
         comment.author = request.user
         comment.article = article
         comment.save()
-        return HttpResponse(convertFromDictToJson({'message': 'created', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['created'])
     return HttpResponse(errors, content_type='application/json')
 
 
-# comment -  too much code refactor this
+#
 @requiredJsonAndPost
 @loginRequiredJson
 def editComment(request, slug, comment_id):
     article = get_object_or_404(Article, slug=slug)
     if not article.approved:
-        return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['onModeration'])
     comment = get_object_or_404(Comment, id=comment_id)
+    likes = comment.likes
     if not request.user == comment.author:
-        return HttpResponse(convertFromDictToJson({'code': '', 'message': 'PermissionError'}),
-                            content_type='application/json')
+        return HttpResponse(shortcuts['permissionError'])
     article = comment.article
     form = CommentForm(convertFromJsonToDict(request), instance=comment)
     errors = form.errors.as_json()
@@ -167,58 +163,43 @@ def editComment(request, slug, comment_id):
         comment = form.save(commit=False)
         comment.article = article
         comment.author = request.user
+        comment.likes = likes
         comment.save()
-        return HttpResponse(convertFromDictToJson({'message': 'edited', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['edited'])
     else:
-        return HttpResponse(errors, content_type='application/json')  # ok
+        return HttpResponse(errors, content_type='application/json')
 
 
-#
 @loginRequiredJson
 def likeComment(request, slug, comment_id):
     article = get_object_or_404(Article, slug=slug)
     if not article.approved:
-        return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['onModeration'])
     comment = get_object_or_404(Comment, id=comment_id)
     newLike, created = Like.objects.get_or_create(user=request.user, comment=comment)
     if not created:
         comment.likes = comment.likes - 1
         comment.save()
         newLike.delete()
-        return HttpResponse(convertFromDictToJson({'message': 'deleted', 'code': ''}), content_type='application/json')
+        return HttpResponseJson(shortcuts['deleted'])
     comment.likes += 1
     comment.save()
-    return HttpResponse(convertFromDictToJson({'message': 'created', 'code': ''}), content_type='application/json')
+    return HttpResponseJson(shortcuts['created'])
 
 
-# ok
 @loginRequiredJson
 def deleteComment(request, slug, comment_id):
     article = get_object_or_404(Article, slug=slug)
     if not article.approved:
-        return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['onModeration'])
     comment = get_object_or_404(Comment, id=comment_id)
     if (not comment.author == request.user) and (not request.user.is_staff):
-        return HttpResponse(convertFromDictToJson({'code': '', 'message': 'PermissionError'}),
-                            content_type='application/json')
+        return HttpResponseJson(shortcuts['permissionError'])
     comment.delete()
-    return HttpResponse(convertFromDictToJson({'message': 'deleted', 'code': ''}), content_type='application/json')
+    return HttpResponseJson(shortcuts['deleted'])
 
 
-# ok just  check what return
 def getAllComments(request, slug):
     article = get_object_or_404(Article, slug=slug)
     dictionaries = [obj.toDict() for obj in article.comment_set.all()]
-    return HttpResponse(convertFromDictToJson(dictionaries),
-                        content_type='application/json')
-
-
-
-
-    # def ArticleStatus(article):
-    #    if not article.approved:
-    #        return HttpResponse(convertFromDictToJson({'message': 'On moderation', 'code': ''}),
-    #                            content_type='application/json')
+    return HttpResponseJson(dictionaries)

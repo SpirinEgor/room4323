@@ -1,7 +1,8 @@
 to start frontend use (perhaps, you should run it with root):
 ```
-npm install //install node_modules
-npm start
+npm install gulp
+gulp install //in first time "npm install"
+gulp start
 ```
 default adress is:
 ```

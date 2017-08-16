@@ -22,5 +22,25 @@
     "Русский язык": [
         "Алгоритм Эвклида",
         "Дерево отрезков"
+    ],
+    "Base1": [
+        "Evklid",
+        "Eratosphen",
+        "Binary pow",
+        "Binary search"
+    ],
+    "Graph1": [
+        "DFS",
+        "BFS",
+        "Dijkstra"
+    ],
+    "String1": [
+        "Z-function",
+        "Knut-Morris-Pratt"
+    ],
+    "Data structure1": [
+        "Segment tree",
+        "Cartesian tree",
+        "sqrt-decomposition"
     ]
 }

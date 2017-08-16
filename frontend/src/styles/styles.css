@@ -26,3 +26,8 @@
   max-width: 900px;
   margin: auto;
 }
+
+.float-right {
+  margin-right: 50px !important;
+  margin-bottom: 10px !important;
+}

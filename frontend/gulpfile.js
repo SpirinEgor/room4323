@@ -65,6 +65,5 @@ gulp.task('install', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/**/*.html', ['copy-static']);
-    gulp.watch('src/styles/**/*.css', ['copy-static']);
+    gulp.watch('src/**/*.*', ['copy-static']);
 })

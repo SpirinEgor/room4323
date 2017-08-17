@@ -42,5 +42,25 @@
         "Segment tree",
         "Cartesian tree",
         "sqrt-decomposition"
+    ],
+    "Base11": [
+        "Evklid",
+        "Eratosphen",
+        "Binary pow",
+        "Binary search"
+    ],
+    "Graph11": [
+        "DFS",
+        "BFS",
+        "Dijkstra"
+    ],
+    "String11": [
+        "Z-function",
+        "Knut-Morris-Pratt"
+    ],
+    "Data structure11": [
+        "Segment tree",
+        "Cartesian tree",
+        "sqrt-decomposition"
     ]
 }

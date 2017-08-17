@@ -27,7 +27,8 @@
   margin: auto;
 }
 
-.float-right {
-  margin-right: 50px !important;
-  margin-bottom: 10px !important;
+.add-button {
+  position: fixed;
+  right: 50px !important;
+  bottom: 10px !important;
 }

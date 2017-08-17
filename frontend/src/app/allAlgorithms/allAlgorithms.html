@@ -1,3 +1,8 @@
+<div class="add-button">
+  <a routerLink="/create" routerLinkActive="active" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+    <i class="material-icons">add</i>
+  </a>
+</div>
 <div class="mdl-grid algorithms-max-width">
   <div *ngFor="let section of allSections" 
         class="mdl-cell mdl-card mdl-shadow--4dp algorithms-card">
@@ -9,9 +14,4 @@
           class="mdl-navigation__link"><u>{{algorithm}}</u><br></a>
     </div>
   </div>
-</div>
-<div class="clearfix">
-  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored float-right">
-    <i class="material-icons">add</i>
-  </button>
 </div>

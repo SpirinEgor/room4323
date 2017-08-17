@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AllAlgorithmsService } from './allAlgorithms.service';
 
-
 @Component({
     selector: 'all-algorithms',
     providers: [AllAlgorithmsService],

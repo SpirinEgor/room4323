@@ -2,22 +2,30 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { AllAlgorithmsService } from './allAlgorithms/allAlgorithms.service';
+
 import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
+import { AppComponent } from './app/app.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   declarations: [
-    AllAlgorithmsComponent
+    AllAlgorithmsComponent,
+    AppComponent,
+    CreateComponent
   ],
   providers: [
     AllAlgorithmsService
   ],
   bootstrap: [
-    AllAlgorithmsComponent
+    AppComponent
   ]
 })
 export class AppModule { }

@@ -47,8 +47,8 @@ gulp.task('copy-static', function() {
     const html = gulp.src(['src/app/**/*.html'], {base: "./src/app"})
         .pipe(gulp.dest("build/app"));
 
-    const css = gulp.src(['src/styles/*.css'], {base: "./src/styles"})
-        .pipe(gulp.dest("build/styles"));
+    const css = gulp.src('src/styles/**/*.css')
+        .pipe(gulp.dest("build/styles/"));
 
     const data = gulp.src(['src/temporary_data/*.json'], {base: "./src/temporary_data"})
         .pipe(gulp.dest("build/temporary_data"))

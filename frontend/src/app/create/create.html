@@ -1,9 +1,23 @@
-<div id="editor"></div>
-<textarea id="testbox" rows="3" cols="40"></textarea>
-<img id="equation" />
-
-<script type="text/javascript">
-EqEditor.embed('editor','');
-var a=new EqTextArea('equation', 'testbox');
-EqEditor.add(a,false);
-</script>
+<div class="create mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Write the algorithm here using the TeX-syntax</h2>
+        </div>
+        <div class="mdl-card__supporting-text full-width">
+            <div class="mdl-textfield mdl-js-textfield full-width">
+                <textarea class="mdl-textfield__input border" type="text" rows="{{rowCount}}" placeholder="Input your algorithm here..."
+                    #algorithmInput (keyup)="update(algorithmInput.value)" ></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">This is how your algorithm will look like</h2>
+        </div>
+        <div class="mdl-card__supporting-text full-width">
+            <div class="mdl-textfield mdl-js-textfield full-width">
+                <span class="created-algorithm">{{algorithm}}</span>
+            </div>
+        </div>
+    </div>
+</div>

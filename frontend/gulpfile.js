@@ -18,7 +18,6 @@ const gulpInject = require('gulp-inject');
 const gulpConcat = require('gulp-concat');
 const _ = require('lodash');
 const runSequence = require('run-sequence');
-const KarmaServer = require('karma').Server;
 const argv = require('yargs').argv;
 const mergeStream = require('merge-stream');
 const uglifyES = require('uglify-es');

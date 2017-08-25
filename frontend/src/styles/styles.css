@@ -18,8 +18,12 @@
   padding-right: 0;
 }
 
-.algorithms-card .mdl-card__title {
-  padding-bottom: 0;
+.mdl-card__title {
+  padding-bottom: 0 !important;
+}
+
+.create .mdl-card__supporting-text {
+  padding-top: 0 !important;
 }
 
 .algorithms-blog-card-compact .mdl-card__title {
@@ -35,4 +39,16 @@
   position: fixed;
   right: 50px !important;
   bottom: 10px !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.created-algorithm {
+  white-space: pre-wrap;
+}
+
+.border {
+  border: 1px solid #9e9e9e !important;
 }

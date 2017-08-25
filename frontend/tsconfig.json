@@ -5,7 +5,7 @@
         "target": "es6",
         "inlineSourceMap": true,
         "inlineSources": false,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noLib": false,
         "noEmitOnError": true,
         "declaration": false,

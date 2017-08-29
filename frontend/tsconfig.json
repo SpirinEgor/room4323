@@ -1,21 +1,16 @@
 {
-    "compilerOptions": {
-        "rootDir": "src/app",
-        "outDir": "build/app",
-        "target": "es6",
-        "inlineSourceMap": true,
-        "inlineSources": false,
-        "noImplicitAny": false,
-        "noLib": false,
-        "noEmitOnError": true,
-        "declaration": false,
-        "removeComments": false,
-        "alwaysStrict": true,
-        "skipLibCheck": true,
-        "noUnusedLocals": true
-    },
-    "include": [
-        "src/*",
-        "node_modules/*"
-    ]
+  "compilerOptions": {
+    "rootDir": "./src/",
+    "outDir": "./build/",
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": [ "es2015", "dom" ]
+  }
 }
+

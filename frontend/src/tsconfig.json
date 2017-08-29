@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "rootDir": "./",
+    "outDir": "../build/",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -8,11 +10,7 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "../build"
-  },
-  "include": [
-    "../src/*",
-    "node_modules/*"
-  ]
+    "lib": [ "es2015", "dom" ]
+  }
 }
 

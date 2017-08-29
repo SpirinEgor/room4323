@@ -24,11 +24,8 @@ const uglifyES = require('uglify-es');
 const uglifyComposer = require('gulp-uglify/composer');
 
 
-gulp.task('start', function() {
-    runSequence('clean', 'copy-static', 'build');
-    const run = exec('sudo npm run build:watch');
-    const watch = exec('sudo gulp watch');
-    // return mergeStream(run, watch);
+gulp.task('build', function() {
+    runSequence('clean', 'copy-static', 'tslint', 'ts');
 });
 
 gulp.task('clean', function () {
@@ -37,32 +34,51 @@ gulp.task('clean', function () {
 
 gulp.task('copy-static', function() {
     const src = gulp
-        .src(['src/*.js', 'src/*.html'])
+        .src(['src/*.js'])
         .pipe(gulp.dest('build/'));
 
-    const image = gulp.src(['src/images/*.*'], {base: "./src/images"})
+    const image = gulp.src(['src/images/*.*'])
         .pipe(gulp.dest("build/images"));
 
-    const html = gulp.src(['src/app/**/*.html'], {base: "./src/app"})
-        .pipe(gulp.dest("build/app"));
+    const html = gulp.src(['src/**/*.html'])
+        .pipe(gulp.dest("build/"));
 
     const css = gulp.src('src/styles/**/*.css')
         .pipe(gulp.dest("build/styles/"));
 
-    const data = gulp.src(['src/temporary_data/*.json'], {base: "./src/temporary_data"})
-        .pipe(gulp.dest("build/temporary_data"))
+    const data = gulp.src(['src/temporary_data/*.json'])
+        .pipe(gulp.dest("build/temporary_data/"))
 
     return mergeStream(src, html, css, image, data);
 });
 
-gulp.task('build', function() {
-    exec('sudo npm start');
-});
-
-gulp.task('install', function() {
-    exec('sudo npm run build');
-});
-
 gulp.task('watch', function() {
-    gulp.watch('src/**/*.*', ['copy-static']);
-})
+    const tsfiles = _(tsconfig.include).map(path => path + '/**/*.ts').value();
+    
+    gulp.watch(tsfiles, ['ts']);
+    gulp.watch('src/**/*.html', ['copy-static']);
+    gulp.watch('src/*.js', ['copy-static']);
+    gulp.watch('src/images/*.*', ['copy-static']);
+    gulp.watch('src/styles/*.css', ['copy-static']);
+    gulp.watch('src/temporary_data/*.json', ['copy-static']);
+});
+
+gulp.task('tslint', function () {
+    const program = tslint.Linter.createProgram('./tsconfig.json');
+    return gulp.src(['src/app/**/*.ts'])
+        .pipe(gulpTsLint({
+            program,
+            formatter: 'prose'
+        }))
+        .pipe(gulpTsLint.report({
+            emitError: true
+        }));
+});
+
+gulp.task('ts', function() {
+    const tsProject = ts.createProject('tsconfig.json');
+    return tsProject
+        .src()
+        .pipe(tsProject())
+        .pipe(gulp.dest(tsProject.config.compilerOptions.outDir))
+});

@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-red.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium">
-  
+
   </head>
   <body>
     <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
@@ -90,5 +90,14 @@
     <script>
       System.import('main.js').catch(function(err){ console.error(err); });
     </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+            }
+      });
+    </script>
+    <script type="text/javascript" src="node_modules/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   </body>
 </html>

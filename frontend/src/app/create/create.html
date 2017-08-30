@@ -16,8 +16,12 @@
         </div>
         <div class="mdl-card__supporting-text full-width">
             <div class="mdl-textfield mdl-js-textfield full-width">
-                <span class="created-algorithm">{{algorithm}}</span>
+                <span class="created-algorithm"></span>
             </div>
         </div>
     </div>
+</div>
+<div class="container text-center pb-3">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" 
+            type="submit" (click)="createAlgorithm()" routerLink="/all_algorithms">create algorithm</button>
 </div>

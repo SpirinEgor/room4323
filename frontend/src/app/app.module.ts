@@ -8,6 +8,7 @@ import 'bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AllAlgorithmsService } from './allAlgorithms/allAlgorithms.service';
+import { CreateAlgorithmService } from './create/create.service';
 
 import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
 import { AppComponent } from './app/app.component';
@@ -25,7 +26,8 @@ import { CreateComponent } from './create/create.component';
     CreateComponent
   ],
   providers: [
-    AllAlgorithmsService
+    AllAlgorithmsService,
+    CreateAlgorithmService
   ],
   bootstrap: [
     AppComponent

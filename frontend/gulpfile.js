@@ -53,9 +53,7 @@ gulp.task('copy-static', function() {
 });
 
 gulp.task('watch', function() {
-    const tsfiles = _(tsconfig.include).map(path => path + '/**/*.ts').value();
-    
-    gulp.watch(tsfiles, ['ts']);
+    gulp.watch('src/**/*.ts', ['ts']);
     gulp.watch('src/**/*.html', ['copy-static']);
     gulp.watch('src/*.js', ['copy-static']);
     gulp.watch('src/images/*.*', ['copy-static']);

@@ -28,6 +28,7 @@
     "@angular/platform-browser": "~4.0.0",
     "@angular/platform-browser-dynamic": "~4.0.0",
     "@angular/router": "~4.0.0",
+    "@types/mathjax": "0.0.32",
     "angular-in-memory-web-api": "~0.3.0",
     "bootstrap": "^4.0.0-beta",
     "core-js": "^2.4.1",

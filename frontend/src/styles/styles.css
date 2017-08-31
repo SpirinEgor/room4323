@@ -2,15 +2,15 @@
 @import "./bootstrap/bootstrap-grid.css";
 @import "./bootstrap/bootstrap-reboot.css";
 
+body {
+  background: url('../images/background.jpg') center / cover;
+}
+
 .mdl-layout__header {
-  background: url('.././images/header.jpg') center / cover;
+  background: url('../images/header.jpg') center / cover;
 }
 
 .mdl-layout__header-row {
-  color: white;
-}
-
-#header_nav .mdl-navigation__link {
   color: white;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .algorithms-max-width {
-  max-width: 900px;
+  max-width: 100%;
   margin: auto;
 }
 

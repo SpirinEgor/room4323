@@ -1,11 +1,6 @@
-<div class="add-button">
-  <a routerLink="/create" routerLinkActive="active" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-    <i class="material-icons">add</i>
-  </a>
-</div>
 <div class="mdl-grid algorithms-max-width">
   <div *ngFor="let section of allSections" 
-        class="mdl-cell mdl-card mdl-shadow--4dp algorithms-card">
+        class="mdl-cell--3-col m-2 mdl-card mdl-shadow--4dp algorithms-card">
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text">{{section.theme}}</h2>
     </div>

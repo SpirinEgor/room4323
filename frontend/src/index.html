@@ -30,33 +30,13 @@
 
   </head>
   <body>
-    <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
+    <div class="mdl-layout mdl-js-layout">
       <header class="mdl-layout__header mdl-layout__header--waterfall">
         <!-- Top row, always visible -->
         <div class="mdl-layout__header-row">
           <!-- Title -->
           <span class="mdl-layout-title">room4323</span>
           <div class="mdl-layout-spacer"></div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                      mdl-textfield--floating-label mdl-textfield--align-right">
-            <label class="mdl-button mdl-js-button mdl-button--icon"
-                   for="waterfall-exp">
-              <i class="material-icons">search</i>
-            </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" name="search"
-                     id="waterfall-exp">
-            </div>
-          </div>
-        </div>
-        <!-- Bottom row, not visible on scroll -->
-        <div class="mdl-layout__header-row">
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation -->
-          <nav class="mdl-navigation" id="header_nav">
-            <a class="mdl-navigation__link" href="">All algorithms</a>
-            <a class="mdl-navigation__link" href="">Sign in</a>
-          </nav>
         </div>
       </header>
       <main class="mdl-layout__content">
@@ -64,7 +44,9 @@
           <!-- Your content goes here -->
           <div>
             <app class="content">
-              <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+              <div class="container text-center">
+                <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+              </div>
             </app>
           </div>
           
@@ -72,8 +54,9 @@
             <div class="mdl-mini-footer__left-section">
               <div class="mdl-logo">Powered by</div>
               <ul class="mdl-mini-footer__link-list">
-                <li><a href="#">Egor Spirin</a></li>
+                <li><a href="http://spirin.tech/">Egor Spirin</a></li>
                 <li><a href="#">Nikita Mishin</a></li>
+                <li><a href="http://gorbatyuk.info/">Sergey Gorbatyuk</a></li>
               </ul>
             </div>
           </footer>

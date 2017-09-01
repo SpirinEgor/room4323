@@ -13,7 +13,7 @@ import { SingleAlgorithm } from './singleAlgorithm';
     providers: [SingleAlgorithmComponent],
 })
 export class SingleAlgorithmComponent implements OnInit {
-    private algorithm: SingleAlgorithm = new SingleAlgorithm();
+    private algorithm = new SingleAlgorithm();
 
     constructor(
         private algoService: SingleAlgorithmService,
@@ -30,6 +30,10 @@ export class SingleAlgorithmComponent implements OnInit {
             for (let key of Object.keys(singleAlgorithmJSON)){
                 this.algorithm[key] = singleAlgorithmJSON[key];
             }
+
+            let createdAlgorithm = document.getElementsByClassName('created-algorithm')[0];
+            createdAlgorithm.innerHTML = this.algorithm.algorithm;
+            MathJax.Hub.Queue(['Typeset', MathJax.Hub, createdAlgorithm]);
         });
     }
 

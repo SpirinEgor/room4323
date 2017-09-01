@@ -9,25 +9,29 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AllAlgorithmsService } from './allAlgorithms/allAlgorithms.service';
 import { CreateAlgorithmService } from './create/create.service';
+import { SingleAlgorithmService} from './singleAlgorithm/singleAlgorithm.service';
 
 import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
 import { AppComponent } from './app/app.component';
 import { CreateComponent } from './create/create.component';
+import { SingleAlgorithmComponent} from './singleAlgorithm/singleAlgorithm.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [
     AllAlgorithmsComponent,
     AppComponent,
-    CreateComponent
+    CreateComponent,
+    SingleAlgorithmComponent,
   ],
   providers: [
     AllAlgorithmsService,
-    CreateAlgorithmService
+    CreateAlgorithmService,
+    SingleAlgorithmService,
   ],
   bootstrap: [
     AppComponent

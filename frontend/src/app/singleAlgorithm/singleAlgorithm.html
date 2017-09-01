@@ -1,9 +1,6 @@
-<h3>{{ algorithm.title }}
-    <small style="color:white"> <br>Created by: {{ algorithm.author }} at {{ algorithm.createdate }}</small>
-</h3>
-
-<div class="create mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp">
+<div class="container text-center">
+    <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">{{ algorithm.title}}</h2>
         </div>
@@ -12,6 +9,11 @@
                 <span class="created-algorithm"></span>
             </div>
         </div>
+        <div class="mdl-card__supporting-text full-width text-right">
+            <pre>Creted by: <b>{{ algorithm.author }}</b>
+                 at <b>{{ algorithm.createdate }}</b></pre>
+        </div>
     </div>
 </div>
 
+</div>

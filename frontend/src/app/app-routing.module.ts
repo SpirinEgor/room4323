@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/all_algorithms', pathMatch: 'full' },
   { path: 'all_algorithms',  component: AllAlgorithmsComponent },
   { path: 'create',  component: CreateComponent},
-  { path: 'algorithm/:id', component: SingleAlgorithmComponent}
+  { path: 'algorithm/:slug', component: SingleAlgorithmComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }        from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location }                 from '@angular/common';
@@ -7,16 +6,18 @@ import { SingleAlgorithmService}    from './singleAlgorithm.service';
 
 import { SingleAlgorithm } from './singleAlgorithm';
 
+import 'rxjs/add/operator/switchMap';
+
 @Component({
     selector: 'single-algorithm',
     templateUrl: './singleAlgorithm.html',
     providers: [SingleAlgorithmComponent],
 })
 export class SingleAlgorithmComponent implements OnInit {
-    private algorithm = new SingleAlgorithm();
+    private algorithm: SingleAlgorithm;
 
     constructor(
-        private algoService: SingleAlgorithmService,
+        private service: SingleAlgorithmService,
         private route: ActivatedRoute,
         private location: Location
       ) {}
@@ -24,7 +25,7 @@ export class SingleAlgorithmComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.paramMap
-        .switchMap((params: ParamMap) => this.algoService.getAlgorithm(params.get('id')))
+        .switchMap((params: ParamMap) => this.service.getAlgorithm(params.get('slug')))
         .subscribe(algorithm => {
             const singleAlgorithmJSON = algorithm;
             for (let key of Object.keys(singleAlgorithmJSON)){
@@ -35,10 +36,6 @@ export class SingleAlgorithmComponent implements OnInit {
             createdAlgorithm.innerHTML = this.algorithm.algorithm;
             MathJax.Hub.Queue(['Typeset', MathJax.Hub, createdAlgorithm]);
         });
-    }
-
-    goBack(): void {
-        this.location.back();
     }
 
 }

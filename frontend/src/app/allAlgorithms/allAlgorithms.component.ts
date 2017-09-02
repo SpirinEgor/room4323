@@ -30,6 +30,10 @@ export class AllAlgorithmsComponent implements OnInit {
     ngOnInit() {
         this.getAllAlgorithms();
     }
+
+    makeSlug(name: string) {
+        return name.split(' ').join('-');
+    }
 }
 
 class AlgorithmsSection {

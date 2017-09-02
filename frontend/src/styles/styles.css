@@ -35,14 +35,13 @@ body {
   margin: auto;
 }
 
-.add-button {
-  position: fixed;
-  right: 50px !important;
-  bottom: 10px !important;
-}
-
 .full-width {
   width: 100% !important;
+}
+
+.full-height {
+  min-height: 100vh;
+  height: 100% !important;
 }
 
 .created-algorithm {

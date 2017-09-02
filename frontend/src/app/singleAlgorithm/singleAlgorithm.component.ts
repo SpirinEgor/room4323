@@ -1,6 +1,5 @@
 import { Component, OnInit }        from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Location }                 from '@angular/common';
 
 import { SingleAlgorithmService}    from './singleAlgorithm.service';
 
@@ -14,14 +13,12 @@ import 'rxjs/add/operator/switchMap';
     providers: [SingleAlgorithmComponent],
 })
 export class SingleAlgorithmComponent implements OnInit {
-    private algorithm: SingleAlgorithm;
+    private algorithm = new SingleAlgorithm();
 
     constructor(
         private service: SingleAlgorithmService,
-        private route: ActivatedRoute,
-        private location: Location
+        private route: ActivatedRoute
       ) {}
-
 
     ngOnInit(): void {
         this.route.paramMap
@@ -32,9 +29,9 @@ export class SingleAlgorithmComponent implements OnInit {
                 this.algorithm[key] = singleAlgorithmJSON[key];
             }
 
-            let createdAlgorithm = document.getElementsByClassName('created-algorithm')[0];
-            createdAlgorithm.innerHTML = this.algorithm.algorithm;
-            MathJax.Hub.Queue(['Typeset', MathJax.Hub, createdAlgorithm]);
+            let algorithmField = document.getElementsByClassName('algorithm')[0];
+            algorithmField.innerHTML = this.algorithm.algorithm;
+            MathJax.Hub.Queue(['Typeset', MathJax.Hub, algorithmField]);
         });
     }
 

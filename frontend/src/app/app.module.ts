@@ -1,9 +1,6 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-
-import 'jquery';
-import 'bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -31,7 +28,6 @@ import { CreateComponent } from './create/create.component';
   ],
   bootstrap: [
     AppComponent
-  ],
-  schemas: [ NO_ERRORS_SCHEMA ]
+  ]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { LoginDialog } from './../login/login.component';
+import { SignupDialog } from '../signup/signup.component';
 import { Component } from '@angular/core';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MdDialog} from '@angular/material';
 
 @Component({
     selector: 'app',
@@ -8,10 +9,16 @@ import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 })
 export class AppComponent {
 
-    constructor(public dialog: MdDialog) {}
+    constructor(public loginDialog: MdDialog, public signupDialog : MdDialog) {}
 
-    openDialog(): void {
-        let dialogRef = this.dialog.open(LoginDialog, {
+    openLoginDialog(): void {
+        this.loginDialog.open(LoginDialog, {
+            width: '600px'
+        });
+    }
+
+    openSignupDialog(): void {
+        this.signupDialog.open(SignupDialog, {
             width: '600px'
         });
     }

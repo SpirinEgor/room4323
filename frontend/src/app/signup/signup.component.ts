@@ -2,13 +2,13 @@ import {Component, Inject} from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
-    selector: 'login-dialog',
-    templateUrl: './login.html',
+    selector: 'signup-dialog',
+    templateUrl: './signup.html',
 })
-export class LoginDialog {
+export class SignupDialog {
 
     constructor(
-        public dialogRef: MdDialogRef<LoginDialog>,
+        public dialogRef: MdDialogRef<SignupDialog>,
         @Inject(MD_DIALOG_DATA) public data: any) { }
 
     onNoClick(): void {

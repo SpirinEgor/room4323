@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdDialogModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -12,18 +14,22 @@ import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component
 import { AppComponent } from './app/app.component';
 import { CreateComponent } from './create/create.component';
 import { SingleAlgorithmComponent} from './singleAlgorithm/singleAlgorithm.component';
+import { LoginDialog } from './login/login.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MdDialogModule
   ],
   declarations: [
     AllAlgorithmsComponent,
     AppComponent,
     CreateComponent,
     SingleAlgorithmComponent,
+    LoginDialog
   ],
   providers: [
     AllAlgorithmsService,
@@ -32,6 +38,9 @@ import { SingleAlgorithmComponent} from './singleAlgorithm/singleAlgorithm.compo
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    LoginDialog
   ]
 })
 export class AppModule { }

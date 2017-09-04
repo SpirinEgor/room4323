@@ -14,7 +14,7 @@ export class SingleAlgorithmService {
     }
 
     getAlgorithm(slug: string) {
-        return this.$http.get(`http://localhost:3000/temporary_data/evklid.json`)
+        return this.$http.get(`http://localhost:8000/temporary_data/evklid.json`)
                         .toPromise()
                         .then(response => response.json())
                         .catch(this.handleError);

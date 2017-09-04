@@ -14,7 +14,7 @@ import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component
 import { AppComponent } from './app/app.component';
 import { CreateComponent } from './create/create.component';
 import { SingleAlgorithmComponent} from './singleAlgorithm/singleAlgorithm.component';
-import { LoginDialog } from './login/login.component';
+import { SigninDialog } from './signin/signin.component';
 import { SignupDialog } from './signup/signup.component';
 
 @NgModule({
@@ -30,7 +30,7 @@ import { SignupDialog } from './signup/signup.component';
     AppComponent,
     CreateComponent,
     SingleAlgorithmComponent,
-    LoginDialog,
+    SigninDialog,
     SignupDialog,
   ],
   providers: [
@@ -42,7 +42,7 @@ import { SignupDialog } from './signup/signup.component';
     AppComponent
   ],
   entryComponents: [
-    LoginDialog,
+    SigninDialog,
     SignupDialog,
   ]
 })

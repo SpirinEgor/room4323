@@ -15,8 +15,10 @@
     <div class="mdl-textfield mdl-js-textfield">
         <input class="mdl-textfield__input" type="password" placeholder="Repeat password">
     </div><br>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-            type="button">Sign Up</button>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-            type="button" (click) = "onNoClicks()">Close</button>
+    <div class="inline">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                type="button" (click) = "onNoClick()">Close</button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
+                type="button">Sign Up</button>
+    </div>
 </form>

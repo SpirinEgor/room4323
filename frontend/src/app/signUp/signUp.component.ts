@@ -1,11 +1,11 @@
-import {Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
-    selector: 'signup-dialog',
-    templateUrl: './signup.html',
+    selector: 'signUp-dialog',
+    templateUrl: './signUp.html',
 })
-export class SignupDialog {
+export class SignUpDialog {
     // private firstName: string;
     // private secondName: string;
     // private email: string;
@@ -13,11 +13,11 @@ export class SignupDialog {
     // private repeatedPassword: string;
 
     constructor(
-        private signupDialogRef: MdDialogRef<SignupDialog>,
+        private signUpDialogRef: MdDialogRef<SignUpDialog>,
         @Inject(MD_DIALOG_DATA) public data: any) { }
 
     onNoClick(): void {
-        this.signupDialogRef.close();
+        this.signUpDialogRef.close();
     }
 
 }

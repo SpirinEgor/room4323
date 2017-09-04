@@ -6,13 +6,18 @@ import { MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
     templateUrl: './signUp.html',
 })
 export class SignUpDialog {
+    // private firstName: string;
+    // private secondName: string;
+    // private email: string;
+    // private password: string;
+    // private repeatedPassword: string;
 
     constructor(
-        public dialogRef: MdDialogRef<SignUpDialog>,
+        private signUpDialogRef: MdDialogRef<SignUpDialog>,
         @Inject(MD_DIALOG_DATA) public data: any) { }
 
     onNoClick(): void {
-        this.dialogRef.close();
+        this.signUpDialogRef.close();
     }
 
 }

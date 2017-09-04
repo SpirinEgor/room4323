@@ -1,9 +1,9 @@
 <form>
     <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" placeholder="e-mail">
+        <input [(ngModel)]="email" name="email" class="mdl-textfield__input" type="email" placeholder="e-mail" required>
     </div>
     <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="password" placeholder="password">
+        <input [(ngModel)]="password" name="password" class="mdl-textfield__input" type="password" placeholder="password" required>
     </div><br>
     <div class="inline">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"

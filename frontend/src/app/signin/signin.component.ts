@@ -1,12 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { MdDialogRef, MdDialog,  MD_DIALOG_DATA } from '@angular/material';
-import { SignupDialog } from '../signup/signup.component'
+import { SignupDialog } from '../signup/signup.component';
 
 @Component({
     selector: 'signin-dialog',
     templateUrl: './signin.html',
 })
 export class SigninDialog {
+    // private email: string;
+    // private password: string;
 
     constructor(
         private signinDialogRef: MdDialogRef<SigninDialog>,
@@ -23,6 +25,4 @@ export class SigninDialog {
             width: '600px'
         });
     }
-    
-
 }

@@ -1,5 +1,4 @@
 import { SigninDialog } from './../signin/signin.component';
-import { SignupDialog } from '../signup/signup.component';
 import { Component } from '@angular/core';
 import { MdDialog} from '@angular/material';
 

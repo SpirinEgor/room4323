@@ -1,16 +1,18 @@
 <form>
-    <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield" id="email">
         <input [(ngModel)]="email" name="email" class="mdl-textfield__input" type="email" placeholder="e-mail" required>
+        <span id="email-error"></span>
     </div>
-    <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield" id="password">
         <input [(ngModel)]="password" name="password" class="mdl-textfield__input" type="password" placeholder="password" required>
+        <span id="password-error"></span>
     </div><br>
     <div class="inline">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
             type="button" (click)="onNoClick()">Close</button>
         <button class="ml-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
-            type="button" (click)="onSignupClick()">Sign Up</button>
+            type="button" (click)="onSignUpClick()">Sign Up</button>
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
-            type="button">Sign In</button> 
+            type="button" (click)="onSignInClick()">Sign In</button> 
     </div>
 </form>

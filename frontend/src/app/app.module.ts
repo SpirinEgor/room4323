@@ -11,6 +11,7 @@ import { AllAlgorithmsService } from './allAlgorithms/allAlgorithms.service';
 import { CreateAlgorithmService } from './create/create.service';
 import { SingleAlgorithmService} from './singleAlgorithm/singleAlgorithm.service';
 import { SignInService } from './signIn/signIn.service';
+import { SignUpService} from './signUp/signUp.service';
 
 import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
 import { AppComponent } from './app/app.component';
@@ -40,7 +41,8 @@ import { SignUpDialog } from './signUp/signUp.component';
     AllAlgorithmsService,
     CreateAlgorithmService,
     SingleAlgorithmService,
-    SignInService
+    SignInService,
+    SignUpService,
   ],
   bootstrap: [
     AppComponent

@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+// import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import * as Response from '../common/response'
@@ -6,7 +6,7 @@ import * as Response from '../common/response'
 @Injectable()
 export class SignInService {
 
-    constructor(private $http: Http) { }
+    // constructor(private $http: Http) { }
 
     login(email: string, password: string): Response.Body {
         let response: Response.Body = new Response.Body();
@@ -26,11 +26,11 @@ export class SignInService {
     }
 
     sendData(email: string, password: string) {
-        const body = {
-            'email': email,
-            'password': password
-        };
-        const response = this.$http.post('/api/login', body).subscribe();
+        // const body = {
+        //     'email': email,
+        //     'password': password
+        // };
+        // const response = this.$http.post('/api/login', body).subscribe();
     }
 
 }

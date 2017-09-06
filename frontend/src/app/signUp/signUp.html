@@ -1,24 +1,26 @@
 <form>
-    <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield" id="firstName">
         <input [(ngModel)]="firstName" name="firstName" class="mdl-textfield__input" type="text" placeholder="First name" required>
     </div>
-    <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield" id="secondName">
         <input [(ngModel)]="secondName" name="secondName" class="mdl-textfield__input" type="text" placeholder="Second name" required>
     </div>
-    <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield" id="email">
         <input [(ngModel)]="email" name="email" class="mdl-textfield__input" type="email" placeholder="E-mail" required>
+        <span id="email-error"></span>
     </div>
     <div style="border-top: 1px solid black;"></div>
-    <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield" id="password">
         <input [(ngModel)]="password" name="password" class="mdl-textfield__input" type="password" placeholder="Create password" required>
     </div>
-    <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield" id="repeatedPassword">
         <input [(ngModel)]="repeatedPassword" name="repeatedPassword" class="mdl-textfield__input" type="password" placeholder="Repeat password" required>
+        <span id="password-error"></span>
     </div><br>
     <div class="inline">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                 type="button" (click)="onNoClick()">Close</button>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
-                type="button">Sign Up</button>
+                type="button" (click) = "onSignUpClick()">Sign Up</button>
     </div>
 </form>

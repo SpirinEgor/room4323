@@ -35,11 +35,15 @@ export class SignInDialog {
         if (result.status === Response.successful) {
             this.onNoClick();
         } else {
-            for (let error of result.errors) {
-                const field = document.getElementById(error.field);
-                field.classList.add('is-invalid');
-                const errorField = document.getElementById(error.field + '-error');
-                errorField.innerHTML = error.error;
+            if (result.errors.length === 0) {
+                this.onNoClick();
+            } else {
+                for (let error of result.errors) {
+                    const field = document.getElementById(error.field);
+                    field.classList.add('is-invalid');
+                    const errorField = document.getElementById(error.field + '-error');
+                    errorField.innerHTML = error.error;
+                }
             }
         }
     }

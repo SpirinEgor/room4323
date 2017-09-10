@@ -15,16 +15,32 @@ export class SignUpDialog {
     private password: string;
     private repeatedPassword: string;
 
+    private fields: HTMLElement[];
+
     constructor(
         private signUpService: SignUpService,
         private signUpDialogRef: MdDialogRef<SignUpDialog>,
-        @Inject(MD_DIALOG_DATA) public data: any) { }
+        @Inject(MD_DIALOG_DATA) public data: any) {
+            this.fields.push(document.getElementById('email'));
+            this.fields.push(document.getElementById('password'));
+            this.fields.push(document.getElementById('repeatedPassword'));
+            this.fields.push(document.getElementById('email-error'));
+            this.fields.push(document.getElementById('password-error'));
+    }
 
     onNoClick(): void {
         this.signUpDialogRef.close();
     }
 
     onSignUpClick(): void {
+        for ( let field of this.fields){
+            if (field.classList.contains('is-invalid')) {
+                field.classList.remove('is-invalid');
+            }
+            if (field.id.endsWith('-error')) {
+                field.innerHTML = '';
+            }
+        }
         const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName,
                                                             this.email, this.password, this.repeatedPassword);
         if (result.status === Response.successful) {

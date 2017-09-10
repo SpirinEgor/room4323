@@ -24,9 +24,7 @@ export class SignInService {
     }
 
     validateEmail(email: string) {
-        const regString =
-            `^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))` +
-            `@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`;
+        const regString = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
         const regExp = new RegExp(regString);
         return regExp.test(email);
     }

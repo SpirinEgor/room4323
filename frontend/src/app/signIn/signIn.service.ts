@@ -9,7 +9,7 @@ export class SignInService {
 
     constructor(private $http: Http) { }
 
-    login(email: string, password: string): Response.Body {
+    signIn(email: string, password: string): Response.Body {
         let response: Response.Body = new Response.Body();
         if (!this.validateEmail(email)) {
             response.status = Response.error;

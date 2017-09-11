@@ -15,24 +15,23 @@ export class SignUpDialog {
     private password: string;
     private repeatedPassword: string;
 
-    private fields: HTMLElement[];
+    private fields: HTMLElement[] = [];
 
     constructor(
         private signUpService: SignUpService,
         private signUpDialogRef: MdDialogRef<SignUpDialog>,
-        @Inject(MD_DIALOG_DATA) public data: any) {
-            this.fields.push(document.getElementById('email'));
-            this.fields.push(document.getElementById('password'));
-            this.fields.push(document.getElementById('repeatedPassword'));
-            this.fields.push(document.getElementById('email-error'));
-            this.fields.push(document.getElementById('password-error'));
-    }
+        @Inject(MD_DIALOG_DATA) public data: any) { }
 
     onNoClick(): void {
         this.signUpDialogRef.close();
     }
 
     onSignUpClick(): void {
+        this.fields.push(document.getElementById('email'));
+        this.fields.push(document.getElementById('password'));
+        this.fields.push(document.getElementById('repeatedPassword'));
+        this.fields.push(document.getElementById('email-error'));
+        this.fields.push(document.getElementById('password-error'));
         for ( let field of this.fields){
             if (field.classList.contains('is-invalid')) {
                 field.classList.remove('is-invalid');
@@ -46,12 +45,16 @@ export class SignUpDialog {
         if (result.status === Response.successful) {
             this.onNoClick();
         } else {
-            for (let error of result.errors) {
-                const field = document.getElementById(error.field);
-                field.classList.add('is-invalid');
-                const errorField = document.getElementById(error.field + '-error');
-                if (errorField !== undefined) {
-                    errorField.innerHTML = error.error;
+            if (result.errors.length === 0) {
+                this.onNoClick();
+            } else {
+                for (let error of result.errors) {
+                    const field = document.getElementById(error.field);
+                    field.classList.add('is-invalid');
+                    const errorField = document.getElementById(error.field + '-error');
+                    if (errorField !== undefined) {
+                        errorField.innerHTML = error.error;
+                    }
                 }
             }
         }

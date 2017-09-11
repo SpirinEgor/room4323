@@ -31,7 +31,7 @@ export class SignInDialog {
     }
 
     onSignInClick(): void {
-        const result: Response.Body = this.signInService.login(this.email, this.password);
+        const result: Response.Body = this.signInService.signIn(this.email, this.password);
         if (result.status === Response.successful) {
             this.onNoClick();
         } else {

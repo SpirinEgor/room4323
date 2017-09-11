@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdDialogModule } from '@angular/material';
+import { MdInputModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,6 +30,8 @@ import { SignUpDialog } from './signUp/signUp.component';
     BrowserAnimationsModule,
     MdDialogModule,
     FormsModule,
+    MdInputModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AllAlgorithmsComponent,

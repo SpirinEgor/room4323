@@ -1,8 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { SignUpService} from './signUp.service';
+import { FormControl, Validators } from '@angular/forms';
 
 import * as Response from '../common/response';
+
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
     selector: 'signUp-dialog',
@@ -14,8 +17,26 @@ export class SignUpDialog {
     private email: string;
     private password: string;
     private repeatedPassword: string;
+    private username: string;
 
-    private fields: HTMLElement[] = [];
+    emailFormControl = new FormControl('', [
+        Validators.required,
+        Validators.pattern(EMAIL_REGEX)]);
+
+    passwordFormControl = new FormControl('', [
+        Validators.required]);
+
+    repeatedPasswordFormControl = new FormControl('', [
+        Validators.required);
+
+    firstNameFormControl = new FormControl('', [
+        Validators.required]);
+
+    secondNameFormControl = new FormControl('', [
+        Validators.required]);
+
+    usernameFormControl = new FormControl('', [
+        Validators.required]);
 
     constructor(
         private signUpService: SignUpService,
@@ -27,36 +48,11 @@ export class SignUpDialog {
     }
 
     onSignUpClick(): void {
-        this.fields.push(document.getElementById('email'));
-        this.fields.push(document.getElementById('password'));
-        this.fields.push(document.getElementById('repeatedPassword'));
-        this.fields.push(document.getElementById('email-error'));
-        this.fields.push(document.getElementById('password-error'));
-        for ( let field of this.fields){
-            if (field.classList.contains('is-invalid')) {
-                field.classList.remove('is-invalid');
-            }
-            if (field.id.endsWith('-error')) {
-                field.innerHTML = '';
-            }
-        }
-        const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName,
-                                                            this.email, this.password, this.repeatedPassword);
-        if (result.status === Response.successful) {
+        if (document.getElementById('error') == null) {
+            const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName, this.username,
+                                                             this.email, this.password, this.repeatedPassword);
+            console.log(result.status);
             this.onNoClick();
-        } else {
-            if (result.errors.length === 0) {
-                this.onNoClick();
-            } else {
-                for (let error of result.errors) {
-                    const field = document.getElementById(error.field);
-                    field.classList.add('is-invalid');
-                    const errorField = document.getElementById(error.field + '-error');
-                    if (errorField !== undefined) {
-                        errorField.innerHTML = error.error;
-                    }
-                }
-            }
         }
     }
 

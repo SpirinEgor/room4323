@@ -11,23 +11,10 @@ export class SignInService {
 
     signIn(email: string, password: string): Response.Body {
         let response: Response.Body = new Response.Body();
-        if (!this.validateEmail(email)) {
-            response.status = Response.error;
-            response.errors.push({
-                field: 'email',
-                error: 'This is not a valid e-mail address'
-            })
-        } else {
-            response = this.sendData(email, password);
-        }
+        response = this.sendData(email, password);
         return response;
     }
 
-    validateEmail(email: string) {
-        const regString = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
-        const regExp = new RegExp(regString);
-        return regExp.test(email);
-    }
     sendData(email: string, password: string): Response.Body {
         const body = {
             'email': email,

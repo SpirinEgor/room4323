@@ -2,8 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { MdDialogRef, MdDialog, MD_DIALOG_DATA } from '@angular/material';
 import { SignUpDialog } from '../signUp/signUp.component'
 import { SignInService } from './signIn.service';
+import { FormControl, Validators } from '@angular/forms';
 
 import * as Response from '../common/response';
+
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
     selector: 'signIn-dialog',
@@ -12,6 +15,13 @@ import * as Response from '../common/response';
 export class SignInDialog {
     private email: string;
     private password: string;
+
+    emailFormControl = new FormControl('', [
+        Validators.required,
+        Validators.pattern(EMAIL_REGEX)]);
+
+    passwordFormControl = new FormControl('', [
+        Validators.required]);
 
     constructor(
         private signInDialogRef: MdDialogRef<SignInDialog>,
@@ -31,20 +41,10 @@ export class SignInDialog {
     }
 
     onSignInClick(): void {
-        const result: Response.Body = this.signInService.signIn(this.email, this.password);
-        if (result.status === Response.successful) {
+        if (document.getElementById('error') == null) {
+            const result: Response.Body = this.signInService.signIn(this.email, this.password);
+            console.log(result.status)
             this.onNoClick();
-        } else {
-            if (result.errors.length === 0) {
-                this.onNoClick();
-            } else {
-                for (let error of result.errors) {
-                    const field = document.getElementById(error.field);
-                    field.classList.add('is-invalid');
-                    const errorField = document.getElementById(error.field + '-error');
-                    errorField.innerHTML = error.error;
-                }
-            }
         }
     }
 

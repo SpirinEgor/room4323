@@ -5,6 +5,7 @@ import { SignInService } from './signIn.service';
 import { FormControl, Validators } from '@angular/forms';
 
 import * as Response from '../common/response';
+import { showErrorToast } from '../common/toast';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -43,8 +44,11 @@ export class SignInDialog {
     onSignInClick(): void {
         if (document.getElementById('error') == null) {
             const result: Response.Body = this.signInService.signIn(this.email, this.password);
-            console.log(result.status)
-            this.onNoClick();
+            if (result.status === Response.successful) {
+                showErrorToast('incorrect field');
+            } else {
+                this.onNoClick();
+            }
         }
     }
 

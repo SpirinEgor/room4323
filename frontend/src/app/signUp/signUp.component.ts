@@ -1,9 +1,11 @@
+import { successful } from './../common/response';
 import { Component, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { SignUpService} from './signUp.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 import * as Response from '../common/response';
+import { showErrorToast } from '../common/toast';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -27,7 +29,7 @@ export class SignUpDialog {
         Validators.required]);
 
     repeatedPasswordFormControl = new FormControl('', [
-        Validators.required);
+        Validators.required]);
 
     firstNameFormControl = new FormControl('', [
         Validators.required]);
@@ -48,12 +50,26 @@ export class SignUpDialog {
     }
 
     onSignUpClick(): void {
-        if (document.getElementById('error') == null) {
-            const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName, this.username,
+        if (this.password !== this.repeatedPassword) {  // such a KOSTYL
+            this.repeatedPasswordFormControl.setErrors(
+                {'Passwords do not match': true}
+            );
+            document.getElementById('repeatedPasswordError').innerHTML = 'Passwords do not match';
+        } else {
+            if (document.getElementById('error') == null) {
+                const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName, this.username,
                                                              this.email, this.password, this.repeatedPassword);
-            console.log(result.status);
-            this.onNoClick();
+                if (result.status === Response.successful) {
+                    showErrorToast('incorrect field');
+                } else {
+                    this.onNoClick();
+                }
+            }
         }
+    }
+
+    clearMdHint() { // same KOSTYL repair it smn
+        document.getElementById('repeatedPasswordError').innerHTML = '';
     }
 
 }

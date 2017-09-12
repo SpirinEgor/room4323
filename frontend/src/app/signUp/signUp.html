@@ -26,7 +26,7 @@
 
     <md-form-field class="form-group">
         <input mdInput placeholder="Email" [(ngModel)]="email"
-                [formControl]="emailFormControl" type="email">
+                [formControl]="emailFormControl" type="email" name="email">
         <md-error *ngIf="emailFormControl.hasError('pattern')" id="error">
           Please enter a valid email address
         </md-error>
@@ -37,7 +37,7 @@
 
     <md-form-field class="form-group">
         <input mdInput placeholder="Password" [(ngModel)]="password"
-                [formControl]="passwordFormControl" type="password" id="password">
+                [formControl]="passwordFormControl" type="password">
         <md-error *ngIf="passwordFormControl.hasError('required')" id="error">
           Password is <strong>required</strong>
         </md-error>
@@ -45,19 +45,19 @@
 
     <md-form-field class="form-group">
         <input mdInput placeholder="Repeat password" [(ngModel)]="repeatedPassword"
-                [formControl]="repeatedPasswordFormControl" type="password" id="repeatedPassword">
-        <md-error *ngIf="repeatedPasswordFormControl.hasError('pattern')" id="error">
-          Passwords do not match
-        </md-error>
+                [formControl]="repeatedPasswordFormControl" type="password" (input)="clearMdHint()">
         <md-error *ngIf="repeatedPasswordFormControl.hasError('required')" id="error">
           Repeated password is <strong>required</strong>
         </md-error>
+        <md-hint align="start" class="mat-error" id="repeatedPasswordError"></md-hint>
     </md-form-field><br>
 
+    <div id="toast"></div>
+
     <div class="inline">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                 type="button" (click)="onNoClick()">Close</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
                 type="submit" (click) = "onSignUpClick()">Sign Up</button>
     </div>
 </form>

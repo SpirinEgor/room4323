@@ -1,0 +1,27 @@
+<div class="create mdl-grid full-height">
+    <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Write the algorithm here using the TeX-syntax</h2>
+        </div>
+        <div class="mdl-card__supporting-text full-width">
+            <div class="mdl-textfield mdl-js-textfield full-width">
+                <textarea class="mdl-textfield__input border full-height" rows="{{rowCount}}" type="text" placeholder="Input your algorithm here..."
+                    #algorithmInput (keyup)="update(algorithmInput.value)" ></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">This is how your algorithm will look like</h2>
+        </div>
+        <div class="mdl-card__supporting-text full-width">
+            <div class="mdl-textfield mdl-js-textfield full-width">
+                <span class="created-algorithm"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container text-center pb-3">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" 
+            (click)="createAlgorithm()">Create</button>
+</div>

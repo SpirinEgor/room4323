@@ -1,0 +1,54 @@
+@import "./bootstrap/bootstrap.css";
+@import "./bootstrap/bootstrap-grid.css";
+@import "./bootstrap/bootstrap-reboot.css";
+@import "./dialog.css";
+
+body {
+  background: url('../images/background.jpg') center / cover;
+}
+
+.mdl-layout__header {
+  background: url('../images/header.jpg') center / cover;
+}
+
+.mdl-layout__header-row {
+  color: white;
+}
+
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+  padding-right: 0;
+}
+
+.mdl-card__title {
+  padding-bottom: 0 !important;
+}
+
+.create .mdl-card__supporting-text {
+  padding-top: 0 !important;
+}
+
+.algorithms-blog-card-compact .mdl-card__title {
+  padding-bottom: 0;
+}
+
+.algorithms-max-width {
+  max-width: 100%;
+  margin: auto;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.full-height {
+  min-height: 100vh;
+  height: 100% !important;
+}
+
+.created-algorithm {
+  white-space: pre-wrap;
+}
+
+.border {
+  border: 1px solid #9e9e9e !important;
+}

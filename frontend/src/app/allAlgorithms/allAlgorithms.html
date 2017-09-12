@@ -1,0 +1,16 @@
+<div class="full-height">
+<div class="mdl-grid algorithms-max-width">
+  <div *ngFor="let section of allSections" 
+        class="mdl-cell--3-col m-2 mdl-card mdl-shadow--4dp algorithms-card">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text">{{section.theme}}</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      <div *ngFor="let algorithm of section.algorithms">
+        <a routerLink="/algorithm/{{makeSlug(algorithm)}}" routerLinkActive="active"
+            class="mdl-navigation__link"><u>{{algorithm}}</u><br></a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,14 @@
+<nav class="navbar">
+    <div class="inline">
+        <button class="mr-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            routerLink="/all_algorithms" routerLinkActive="active">All algorithms</button>
+        <button class="mr-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            routerLink="/create" routerLinkActive="active">Create new algorithm</button>
+    </div>
+    <div class="inline">
+        <button class="mr-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            type="button" (click)="openSignInDialog()">Sign In / Sign Up</button>
+    </div>
+</nav>
+<div id="toast"></div>
+<router-outlet></router-outlet>

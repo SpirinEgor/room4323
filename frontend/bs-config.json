@@ -1,9 +1,10 @@
 {
   "server": {
-    "baseDir": "src",
+    "baseDir": "build",
     "routes": {
       "/node_modules": "node_modules"
     }
   },
-  "notify": false
+  "notify": false,
+  "port": 8000
 }

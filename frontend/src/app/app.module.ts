@@ -2,14 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdDialogModule } from '@angular/material';
+import { MdInputModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AllAlgorithmsService } from './allAlgorithms/allAlgorithms.service';
 import { CreateAlgorithmService } from './create/create.service';
 import { SingleAlgorithmService} from './singleAlgorithm/singleAlgorithm.service';
+import { SignInService } from './signIn/signIn.service';
+import { SignUpService} from './signUp/signUp.service';
 
 import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
 import { AppComponent } from './app/app.component';
@@ -26,6 +30,8 @@ import { SignUpDialog } from './signUp/signUp.component';
     BrowserAnimationsModule,
     MdDialogModule,
     FormsModule,
+    MdInputModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AllAlgorithmsComponent,
@@ -39,6 +45,8 @@ import { SignUpDialog } from './signUp/signUp.component';
     AllAlgorithmsService,
     CreateAlgorithmService,
     SingleAlgorithmService,
+    SignInService,
+    SignUpService,
   ],
   bootstrap: [
     AppComponent

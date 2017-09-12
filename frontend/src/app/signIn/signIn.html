@@ -1,16 +1,27 @@
 <form>
-    <div class="mdl-textfield mdl-js-textfield">
-        <input [(ngModel)]="email" name="email" class="mdl-textfield__input" type="email" placeholder="e-mail" required>
-    </div>
-    <div class="mdl-textfield mdl-js-textfield">
-        <input [(ngModel)]="password" name="password" class="mdl-textfield__input" type="password" placeholder="password" required>
-    </div><br>
-    <div class="inline">
+    <md-form-field class="form-group">
+        <input mdInput placeholder="Email" [(ngModel)]="email" [formControl]="emailFormControl" type="email">
+        <md-error *ngIf="emailFormControl.hasError('pattern')" id="error">
+          Please enter a valid email address
+        </md-error>
+        <md-error *ngIf="emailFormControl.hasError('required')" id="error">
+          Email is <strong>required</strong>
+        </md-error>
+    </md-form-field><br>
+    <md-form-field class="form-group">
+        <input mdInput placeholder="Password" [(ngModel)]="password" [formControl]="passwordFormControl"
+            type="password">
+        <md-error *ngIf="passwordFormControl.hasError('required')" id="error">
+          Password is <strong>required</strong>
+        </md-error>
+    </md-form-field><br>
+    <div id="toast"></div>
+    <div class="inline form-group">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
             type="button" (click)="onNoClick()">Close</button>
         <button class="ml-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
-            type="button" (click)="onSignupClick()">Sign Up</button>
+            type="button" (click)="onSignUpClick()">Sign Up</button>
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent float-right"
-            type="button">Sign In</button> 
+            type="submit" (click)="onSignInClick()">Sign In</button> 
     </div>
 </form>

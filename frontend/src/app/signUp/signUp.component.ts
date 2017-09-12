@@ -1,8 +1,7 @@
-import { successful } from './../common/response';
 import { Component, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { SignUpService} from './signUp.service';
-import { FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 import * as Response from '../common/response';
 import { showErrorToast } from '../common/toast';

@@ -23,14 +23,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="/node_modules/material-design-lite/dist/material.grey-red.min.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/material-design-lite/dist/material.grey-red.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium">
 
   </head>
   <body>
-    <div class="mdl-layout mdl-js-layout">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header mdl-layout__header--waterfall">
         <!-- Top row, always visible -->
         <div class="mdl-layout__header-row">
@@ -63,13 +63,13 @@
         </div>
       </main>
     </div>
-
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    
+    <script type="text/javascript" src="https://unpkg.com/core-js/client/shim.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/zone.js/dist/zone.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/systemjs/dist/system.src.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/bootstrap@4.0.0-beta/dist/js/bootstrap.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
@@ -78,10 +78,10 @@
         }
       });
     </script>
-    <script src="node_modules/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script src="/node_modules/material-design-lite/material.min.js"></script>
-    <script src="systemjs.config.js"></script>
-    <script>
+    <script type="text/javascript" src="https://unpkg.com/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/material-design-lite/material.min.js"></script>
+    <script type="text/javascript" src="/systemjs.config.js"></script>
+    <script type="text/javascript">
       System.import('main.js').catch(function(err){ console.error(err); });
     </script>
   </body>

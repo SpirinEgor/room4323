@@ -14,7 +14,7 @@ export class AllAlgorithmsService {
     }
 
     getAllAlgorithms() {
-        return this.$http.get('http://localhost:8000/temporary_data/allAlgorithms.json')
+        return this.$http.get('./temporary_data/allAlgorithms.json')
                         .toPromise()
                         .then(response => response.json())
                         .catch(this.handleError);

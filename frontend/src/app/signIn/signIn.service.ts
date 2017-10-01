@@ -21,12 +21,16 @@ export class SignInService {
             'password': password
         };
         let response = new Response.Body();
-        this.$http.post('/api/login', body).subscribe(
+        this.$http.post('http://localhost:8000/api/authentification/login/', body).subscribe(
             data => {
-                response.status = data['result']['status'];
+                data = data.json()
+                alert(data['status']);
+                response.status = data['status'].toString();
                 if (response.status === Response.successful) {
-                    return response;
+                    alert('petux');
+                    // return response;
                 }
+
                 // TODO: catch error from server and set incorrect field
             },
             err => {

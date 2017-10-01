@@ -7,24 +7,25 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import  urlsafe_base64_decode, urlsafe_base64_encode
 from authentification.tokens import *
-
+from django.views.decorators.csrf import csrf_exempt
 # NOTE MAKE domain const
 domain = '127.0.0.1:8000'
 
 
 # registration
-
+@csrf_exempt
+@requiredJsonAndPost
 def loginUser(request):
-    form = LoginForm({'username': request.GET.get('login', None), 'password': request.GET.get('password', None)})
+    form = LoginForm(convertFromJsonToDict(request))
     if form.is_valid():
         user = form.save()
         if user is not None:
             login(request, user)
-            return HttpResponse(convertFromDictToJson({'code': '', 'message': 'success'}),
+            return HttpResponse(convertFromDictToJson({'status': 'ok', 'message': 'success'}),
                                 content_type='application/json')
-    return HttpResponse(convertFromDictToJson({'code': '', 'message': 'failed'}), content_type='application/json')
-
-
+    return HttpResponse(convertFromDictToJson({'status': 'fail', 'message': 'failed'}), content_type='application/json')
+    
+@csrf_exempt
 @requiredJsonAndPost
 def signupUser(request):
     form = SignUpForm(convertFromJsonToDict(request))
@@ -40,7 +41,7 @@ def signupUser(request):
         })
         user.email_user(subject, message)  # for  production need registered  domain and email service. f
         # or debug in settings.py EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-        return HttpResponse(convertFromDictToJson({'code': "", 'message': 'Activate Your Account'}),
+        return HttpResponse(convertFromDictToJson({'status': "OK", 'message': 'Activate Your Account'}),
                             content_type='application/json')
     return HttpResponse(errors, content_type='application/json')
 

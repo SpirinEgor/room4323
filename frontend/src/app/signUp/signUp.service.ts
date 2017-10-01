@@ -19,14 +19,14 @@ export class SignUpService {
     sendData(firstName: string, secondName: string, username: string,
                 email: string, password: string): Response.Body {
         const body = {
-            'firstName': firstName,
-            'secondName': secondName,
+            'first_name': firstName,
+            'last_name': secondName,
             'username': username,
             'email': email,
             'password': password,
         };
         let response = new Response.Body();
-        this.$http.post('/api/signup', body).subscribe(
+        this.$http.post('http://localhost:8000/api/authentification/signup/', body).subscribe(
             data => {
                 response.status = data['result']['status'];
                 if (response.status === Response.successful) {

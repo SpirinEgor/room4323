@@ -21,7 +21,7 @@ from articles.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/authentification/auth$', loginUser, name='login'),
+    url(r'^api/authentification/login/$', loginUser, name='login'),
     url(r'^api/authentification/logout/$', logoutUser, name='logout'),
     url(r'^api/authentification/signup/$', signupUser, name='signup'),
     url(r'^api/authentification/activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',

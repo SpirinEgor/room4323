@@ -30,8 +30,7 @@ export class SignUpDialog {
         Validators.pattern(PASSWORD_REGEX)]);
 
     repeatedPasswordFormControl = new FormControl('', [
-        Validators.required,
-        Validators.pattern(this.getPass())]);
+        Validators.required]);
 
     firstNameFormControl = new FormControl('', [
         Validators.required]);
@@ -51,17 +50,11 @@ export class SignUpDialog {
         this.signUpDialogRef.close();
     }
 
-    getPass(): string {
-        let pass_node = document.getElementById('password');
-        if (pass_node ===  null) {
-            return '';
-        } else {
-            return pass_node.nodeValue;
-        }
-    }
-
     onSignUpClick(): void {
-        let err_list = document.getElementsByTagName('error');
+        if (!this.signUpService.passwordMatchCheck(this.password, this.repeatedPassword)) {
+            this.setMdHint();
+        }
+        let err_list = document.getElementsByTagName('md-error');
         let no_errors = true;
         for (let i = 0; i < err_list.length; i++) {
             if (err_list[i].innerHTML !== '') {
@@ -69,7 +62,7 @@ export class SignUpDialog {
             }
         }
 
-        if (no_errors) {
+        if (no_errors && this.signUpService.passwordMatchCheck(this.password, this.repeatedPassword)) {
             const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName, this.username,
                 this.email, this.password, this.repeatedPassword);
             if (result.status === Response.successful) {
@@ -80,9 +73,11 @@ export class SignUpDialog {
         }
     }
 
-    clearMdHints() { // same KOSTYL repair it smn
+    clearMdHint() { // same KOSTYL repair it smn
         document.getElementById('repeatedPasswordError').innerHTML = '';
-        document.getElementById('passwordError').innerHTML = '';
+    }
+    setMdHint() {
+        document.getElementById('repeatedPasswordError').innerHTML = 'Passwords do not match';
     }
 
 }

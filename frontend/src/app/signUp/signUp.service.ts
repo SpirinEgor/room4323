@@ -41,4 +41,8 @@ export class SignUpService {
         );
         return response;
     }
+
+    passwordMatchCheck(password: string, repeatedPassword: string): boolean {
+        return (password === repeatedPassword);
+    }
 }

@@ -52,7 +52,7 @@ export class SignUpDialog {
 
     onSignUpClick(): void {
         if (!this.signUpService.passwordMatchCheck(this.password, this.repeatedPassword)) {
-            this.setMdHint();
+            this.setInvalidRepeat();
         }
         let err_list = document.getElementsByTagName('md-error');
         let no_errors = true;
@@ -75,9 +75,17 @@ export class SignUpDialog {
 
     clearMdHint() { // same KOSTYL repair it smn
         document.getElementById('repeatedPasswordError').innerHTML = '';
+        let repField = document.getElementById('repeatedPasswordField');
+        repField.classList.remove('mat-form-field-invalid');
+
     }
-    setMdHint() {
+    setInvalidRepeat() {
         document.getElementById('repeatedPasswordError').innerHTML = 'Passwords do not match';
+        let input = document.getElementById('repeatedPasswordInput');
+        input.classList.remove('ng-valid');
+        input.classList.add('ng-invalid');
+        let repField = document.getElementById('repeatedPasswordField');
+        repField.classList.add('mat-form-field-invalid');
     }
 
 }

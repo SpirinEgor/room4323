@@ -47,9 +47,9 @@
         <md-hint align="start" class="mat-error" id="passwordError"></md-hint>
     </md-form-field><br>
 
-    <md-form-field class="form-group">
+    <md-form-field class="form-group" id="repeatedPasswordField">
         <input mdInput placeholder="Repeat password" [(ngModel)]="repeatedPassword"
-                [formControl]="repeatedPasswordFormControl" type="password" (input)="clearMdHint()">
+                [formControl]="repeatedPasswordFormControl" type="password" (input)="clearMdHint()" id="repeatedPasswordInput">
         <md-error *ngIf="repeatedPasswordFormControl.hasError('required')" id="error">
           Repeated password is <strong>required</strong>
         </md-error>

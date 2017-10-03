@@ -7,6 +7,7 @@ import * as Response from '../common/response';
 import { showErrorToast } from '../common/toast';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const PASSWORD_REGEX = /^(?=.*\d).{6,15}$/
 
 @Component({
     selector: 'signUp-dialog',
@@ -16,7 +17,7 @@ export class SignUpDialog {
     private firstName: string;
     private secondName: string;
     private email: string;
-    private password: string;
+    private password = '';
     private repeatedPassword: string;
     private username: string;
 
@@ -25,10 +26,12 @@ export class SignUpDialog {
         Validators.pattern(EMAIL_REGEX)]);
 
     passwordFormControl = new FormControl('', [
-        Validators.required]);
+        Validators.required,
+        Validators.pattern(PASSWORD_REGEX)]);
 
     repeatedPasswordFormControl = new FormControl('', [
-        Validators.required]);
+        Validators.required,
+        Validators.pattern(this.getPass())]);
 
     firstNameFormControl = new FormControl('', [
         Validators.required]);
@@ -48,27 +51,38 @@ export class SignUpDialog {
         this.signUpDialogRef.close();
     }
 
-    onSignUpClick(): void {
-        if (this.password !== this.repeatedPassword) {  // such a KOSTYL
-            this.repeatedPasswordFormControl.setErrors(
-                {'Passwords do not match': true}
-            );
-            document.getElementById('repeatedPasswordError').innerHTML = 'Passwords do not match';
+    getPass(): string {
+        let pass_node = document.getElementById('password');
+        if (pass_node ===  null) {
+            return '';
         } else {
-            if (document.getElementById('error') == null) {
-                const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName, this.username,
-                                                             this.email, this.password, this.repeatedPassword);
-                if (result.status === Response.successful) {
-                    showErrorToast('incorrect field');
-                } else {
-                    this.onNoClick();
-                }
+            return pass_node.nodeValue;
+        }
+    }
+
+    onSignUpClick(): void {
+        let err_list = document.getElementsByTagName('error');
+        let no_errors = true;
+        for (let i = 0; i < err_list.length; i++) {
+            if (err_list[i].innerHTML !== '') {
+                no_errors = false
+            }
+        }
+
+        if (no_errors) {
+            const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName, this.username,
+                this.email, this.password, this.repeatedPassword);
+            if (result.status === Response.successful) {
+                showErrorToast('incorrect field');
+            } else {
+                this.onNoClick();
             }
         }
     }
 
-    clearMdHint() { // same KOSTYL repair it smn
+    clearMdHints() { // same KOSTYL repair it smn
         document.getElementById('repeatedPasswordError').innerHTML = '';
+        document.getElementById('passwordError').innerHTML = '';
     }
 
 }

@@ -46,7 +46,7 @@ class SignUpForm(forms.Form):
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError('This username already exist!')
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('This email address already registered!')
+            raise forms.ValidationError('This email address is already registered!')
         if not letter:
             raise forms.ValidationError("Need at least one letter")
         if not digit:

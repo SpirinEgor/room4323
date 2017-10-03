@@ -37,10 +37,14 @@
 
     <md-form-field class="form-group">
         <input mdInput placeholder="Password" [(ngModel)]="password"
-                [formControl]="passwordFormControl" type="password">
+                [formControl]="passwordFormControl" type="password" id="password">
         <md-error *ngIf="passwordFormControl.hasError('required')" id="error">
           Password is <strong>required</strong>
         </md-error>
+        <md-error *ngIf="passwordFormControl.hasError('pattern')" id="error">
+            Password should be from 6 to 15 characters containing letters and digits
+          </md-error>
+        <md-hint align="start" class="mat-error" id="passwordError"></md-hint>
     </md-form-field><br>
 
     <md-form-field class="form-group">
@@ -48,6 +52,9 @@
                 [formControl]="repeatedPasswordFormControl" type="password" (input)="clearMdHint()">
         <md-error *ngIf="repeatedPasswordFormControl.hasError('required')" id="error">
           Repeated password is <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="repeatedPasswordFormControl.hasError('pattern')" id="error">
+            Passwords do not match
         </md-error>
         <md-hint align="start" class="mat-error" id="repeatedPasswordError"></md-hint>
     </md-form-field><br>

@@ -41,5 +41,4 @@ export class SignUpService {
         );
         return response;
     }
-
 }

@@ -32,7 +32,7 @@ export class AllAlgorithmsComponent implements OnInit {
     }
 
     makeSlug(name: string) {
-        return name.split(' ').join('-');
+        return name.toLowerCase().split(' ').join('-');
     }
 }
 

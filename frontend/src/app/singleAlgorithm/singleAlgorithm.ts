@@ -1,6 +1,9 @@
 export class SingleAlgorithm {
-    title: string;
     author: string;
-    cratedate: string;
-    algorithm: string;
+    category: string;
+    id: number;
+    rating: number;
+    text: string;
+    title: string;
+    date = '01.01.2017';
 }

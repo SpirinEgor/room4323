@@ -32,18 +32,24 @@ class Article(models.Model):
     author = models.ForeignKey(User, default=1, verbose_name="Author")  # 1-admin
     approved = models.BooleanField(default=False)
     slug = models.SlugField(default="", blank=True, max_length=60)
+    created = models.DateTimeField(editable=False,null=True)
+    updated = models.DateTimeField(null=True)
+
 
     # cahgne slugify from - to _
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        if not self.id:
+             self.created = timezone.now()
+        self.updated = timezone.now()
         super(Article, self).save(*args, **kwargs)
-
+        
     def __str__(self):
         return self.title
 
     def toDict(self):
         return dict(author=self.author.username, title=self.title, rating=self.rating,
-                    text=self.text, category=self.category.name, id=self.id)
+                    text=self.text, category=self.category.name, id=self.id,created=self.created,updated=self.updated)
 
     class Meta:
         verbose_name_plural = 'Articles'

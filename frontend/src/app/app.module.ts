@@ -4,8 +4,8 @@ import { HttpModule } from '@angular/http';
 import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdDialogModule } from '@angular/material';
-import { MdInputModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,9 +28,9 @@ import { SignUpDialog } from './signUp/signUp.component';
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MdDialogModule,
+    MatDialogModule,
     FormsModule,
-    MdInputModule,
+    MatInputModule,
     ReactiveFormsModule
   ],
   declarations: [

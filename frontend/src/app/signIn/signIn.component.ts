@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MdDialogRef, MdDialog, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { SignUpDialog } from '../signUp/signUp.component'
 import { SignInService } from './signIn.service';
 import { FormControl, Validators } from '@angular/forms';
@@ -25,10 +25,10 @@ export class SignInDialog {
         Validators.required]);
 
     constructor(
-        private signInDialogRef: MdDialogRef<SignInDialog>,
-        private signUpDialog: MdDialog,
+        private signInDialogRef: MatDialogRef<SignInDialog>,
+        private signUpDialog: MatDialog,
         private signInService: SignInService,
-        @Inject(MD_DIALOG_DATA) public data: any) { }
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     onNoClick(): void {
         this.signInDialogRef.close();

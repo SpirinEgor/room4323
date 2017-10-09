@@ -1,6 +1,6 @@
 import { SignInDialog } from './../signIn/signIn.component';
 import { Component } from '@angular/core';
-import { MdDialog} from '@angular/material';
+import { MatDialog} from '@angular/material';
 
 @Component({
     selector: 'app',
@@ -8,7 +8,7 @@ import { MdDialog} from '@angular/material';
 })
 export class AppComponent {
 
-    constructor(public signInDialog: MdDialog) {}
+    constructor(public signInDialog: MatDialog) {}
 
     openSignInDialog(): void {
         this.signInDialog.open(SignInDialog, {

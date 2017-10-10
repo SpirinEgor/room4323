@@ -17,7 +17,7 @@ domain = '127.0.0.1:8000'
 @csrf_exempt
 @requiredJsonAndPost
 def loginUser(request):
-    if request.user is not None:
+    if request.user.is_authenticated():
         return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'Already logged in'}),
                             content_type='application/json')
     form = LoginForm(convertFromJsonToDict(request))
@@ -36,7 +36,7 @@ def loginUser(request):
 @csrf_exempt
 @requiredJsonAndPost
 def signupUser(request):
-    if request.user is not None:
+    if request.user.is_authenticated():
         return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'Already logged in'}),
                             content_type='application/json')
     form = SignUpForm(convertFromJsonToDict(request))

@@ -77,7 +77,7 @@ def getArticle(request, slug):
     article = get_object_or_404(Article, slug=slug)
     if not (article.approved or request.user.is_staff):
         return HttpResponseJson(shortcuts['onModeration']),
-    dictionary = {'article': article.toDict(), 'status': 'ok',
+    dictionary = {'article': article.toDict(), 'status': 'OK',
                   'comments': list(article.comment_set.values('comment', 'author__username'))}
     return HttpResponseJson(dictionary)
 
@@ -124,7 +124,7 @@ def approveArticle(request):
 ##id must be
 @staffMemberRequiredJson
 def getArticlesOnModeration(request):
-    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=False), 'status': 'ok'}
+    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=False), 'status': 'OK'}
     return HttpResponseJson(dictionary)
 
 

@@ -17,9 +17,9 @@ domain = '127.0.0.1:8000'
 @csrf_exempt
 @requiredJsonAndPost
 def loginUser(request):
+
     if request.user.is_authenticated():
-        return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'Already logged in'}),
-                            content_type='application/json')
+        logout(request)    
     form = LoginForm(convertFromJsonToDict(request))
     if form.is_valid():
         user = form.save()
@@ -79,3 +79,12 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse(convertFromDictToJson({'status': "OK", 'message': 'Invalid account or link'}),
                             content_type='application/json')
+
+
+def logOutAllUsers(request):
+    from django.contrib.sessions.models import Session
+    for s in Session.objects.all():
+        s.delete()
+    return HttpResponse(convertFromDictToJson({'status': "OK", 'message': 'All users are logged out'}),
+                            content_type='application/json')
+

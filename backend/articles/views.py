@@ -98,7 +98,7 @@ def rateArticle(request, slug, score):
 
 
 def getAllArticlesTitle(request):
-    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=True), 'status': 'ok'}
+    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=True), 'status': 'OK'}
     return HttpResponseJson(dictionary)
 
 

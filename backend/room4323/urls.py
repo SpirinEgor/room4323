@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from authentification.views import activate, loginUser, \
-    signupUser, logoutUser
+    signupUser, logoutUser,logOutAllUsers
 from django.conf.urls import url
 from django.contrib import admin
 from articles.views import *
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^api/authentification/activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         activate,
         name='activate'),
+    url(r'^api/authentification/logout/all',logOutAllUsers,name='logOutAllUsers'),
 
     url(r'^api/article/create$', createArticle, name='createArticle'),
     url(r'^api/article/(?P<slug>[-\w\d]+)/get$', getArticle, name='getArticle'),

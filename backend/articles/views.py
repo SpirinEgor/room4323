@@ -208,4 +208,4 @@ def getAllCategories(request):
     result=[]
     for cat in Category.objects.all():
         result.append(cat.name)
-    return HttpResponseJson({'allCategories':result,'status':'OK'})
+    return HttpResponseJson({'status':'OK','result':{'allCategories':result}})

@@ -5,9 +5,14 @@
         <button class="mr-2 mb-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
             routerLink="/create" routerLinkActive="active">Create new algorithm</button>
     </div>
-    <div class="inline">
+    <div class="inline" *ngIf="!login">
         <button class="mr-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
             type="button" (click)="openSignInDialog()">Sign In / Sign Up</button>
+    </div>
+    <div class="inline" *ngIf="login">
+        <span>Hello, {{username}}!</span>
+        <button class="mr-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            type="button" (click)="logOut()">Log out</button>
     </div>
 </nav>
 <div id="toast"></div>

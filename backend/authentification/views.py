@@ -53,7 +53,7 @@ def signupUser(request):
 
 def logoutUser(request):
     logout(request)
-    return HttpResponse(convertFromDictToJson({'code': '', 'message': 'success'}), content_type='application/json')
+    return HttpResponse(convertFromDictToJson({'status': 'ok', 'message': 'success'}), content_type='application/json')
 
 
 # email confirmation

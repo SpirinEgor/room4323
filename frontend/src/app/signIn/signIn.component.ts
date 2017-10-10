@@ -45,7 +45,6 @@ export class SignInDialog {
             if (result.status === Response.successful) {
                 showErrorToast('incorrect field');
             } else {
-                alert(document.cookie);
                 this.onNoClick();
             }
         }

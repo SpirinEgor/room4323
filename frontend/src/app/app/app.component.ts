@@ -1,6 +1,10 @@
 import { SignInDialog } from './../signIn/signIn.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material';
+
+import { AppService } from './app.service';
+
+import { getValueFromCookie, deleteCookie } from '../common/cookieWorker';
 
 @Component({
     selector: 'app',
@@ -8,12 +12,39 @@ import { MatDialog} from '@angular/material';
 })
 export class AppComponent {
 
-    constructor(public signInDialog: MatDialog) {}
+    login = false;
+    username: string;
+
+    constructor(public signInDialog: MatDialog,
+                public appService: AppService) {}
+
+    ngOnInit() {
+        this.updatePage();
+    }
 
     openSignInDialog(): void {
         this.signInDialog.open(SignInDialog, {
             width: '600px'
+        }).afterClosed().subscribe(result => {
+            this.updatePage();
         });
+    }
+
+    logOut(): void {
+        this.appService.logOut();
+        deleteCookie('username');
+        this.updatePage();
+    }
+
+    updatePage(): void {
+        let cookie = document.cookie;
+        let value = getValueFromCookie(cookie, 'username');
+        if (value !== '') {
+            this.login = true;
+            this.username = value;
+        } else {
+            this.login = false;
+        }
     }
 }
 

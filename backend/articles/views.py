@@ -203,3 +203,9 @@ def getAllComments(request, slug):
     article = get_object_or_404(Article, slug=slug)
     dictionaries = [obj.toDict() for obj in article.comment_set.all()]
     return HttpResponseJson(dictionaries)
+
+def getAllCategories(request):
+    result=[]
+    for cat in Category.objects.all():
+        result.append(cat.name)
+    return HttpResponseJson({'status':'OK','result':{'allCategories':result}})

@@ -17,6 +17,9 @@ domain = '127.0.0.1:8000'
 @csrf_exempt
 @requiredJsonAndPost
 def loginUser(request):
+    if request.user is not None:
+        return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'Already logged in'}),
+                            content_type='application/json')
     form = LoginForm(convertFromJsonToDict(request))
     if form.is_valid():
         user = form.save()
@@ -33,6 +36,9 @@ def loginUser(request):
 @csrf_exempt
 @requiredJsonAndPost
 def signupUser(request):
+    if request.user is not None:
+        return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'Already logged in'}),
+                            content_type='application/json')
     form = SignUpForm(convertFromJsonToDict(request))
     errors = form.errors.as_json()
     if form.is_valid():
@@ -53,7 +59,7 @@ def signupUser(request):
 
 def logoutUser(request):
     logout(request)
-    return HttpResponse(convertFromDictToJson({'status': 'ok', 'message': 'success'}), content_type='application/json')
+    return HttpResponse(convertFromDictToJson({'status': 'OK', 'message': 'success'}), content_type='application/json')
 
 
 # email confirmation
@@ -68,8 +74,8 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return HttpResponse(convertFromDictToJson({'code': "", 'message': 'Account activated'}),
+        return HttpResponse(convertFromDictToJson({'status': "OK", 'message': 'Account activated'}),
                             content_type='application/json')
     else:
-        return HttpResponse(convertFromDictToJson({'code': "", 'message': 'Invalid account or link'}),
+        return HttpResponse(convertFromDictToJson({'status': "OK", 'message': 'Invalid account or link'}),
                             content_type='application/json')

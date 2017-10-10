@@ -10,7 +10,7 @@ import { getValueFromCookie, deleteCookie } from '../common/cookieWorker';
     selector: 'app',
     templateUrl: './app.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     login = false;
     username: string;

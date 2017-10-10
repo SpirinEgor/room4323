@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^api/article/(?P<slug>[-\w\d]+)/delete$', deleteArticle, name='deleteArticle'),
     url(r'^api/article/(?P<slug>[-\w\d]+)/rate/(?P<score>[12345]{1})$', rateArticle, name='rateArticle'),
     url(r'^api/article/get/all$', getAllArticlesTitle, name='getAllArticlesTitle'),
+    url(r'^api/article/categories/all$',getAllCategories,name='getAllCategories'),
 
     url(r'^api/article/(?P<slug>[-\w\d]+)/comment$', commentArticle, name='commentArticle'),
     url(r'^api/article/(?P<slug>[-\w\d]+)/(?P<comment_id>[0-9]+)/like$', likeComment, name='likeComment'),

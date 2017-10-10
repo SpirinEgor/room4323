@@ -7,19 +7,17 @@ import { FormControl, Validators } from '@angular/forms';
 import * as Response from '../common/response';
 import { showErrorToast } from '../common/toast';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
     selector: 'signIn-dialog',
     templateUrl: './signIn.html',
 })
 export class SignInDialog {
-    private email: string;
+    private username: string;
     private password: string;
 
-    emailFormControl = new FormControl('', [
-        Validators.required,
-        Validators.pattern(EMAIL_REGEX)]);
+    usernameFormControl = new FormControl('', [
+        Validators.required]);
 
     passwordFormControl = new FormControl('', [
         Validators.required]);
@@ -43,10 +41,11 @@ export class SignInDialog {
 
     onSignInClick(): void {
         if (document.getElementById('error') == null) {
-            const result: Response.Body = this.signInService.signIn(this.email, this.password);
+            const result: Response.Body = this.signInService.signIn(this.username, this.password);
             if (result.status === Response.successful) {
                 showErrorToast('incorrect field');
             } else {
+                alert(document.cookie);
                 this.onNoClick();
             }
         }

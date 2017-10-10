@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='Username', max_length=40, required=True, min_length=4)  ##??
+    username = forms.CharField(label='Username', max_length=40, required=True, min_length=3)  ##??
     password = forms.CharField(label='Password', required=True, min_length=8)
 
     def save(self):
@@ -23,7 +23,7 @@ class SignUpForm(forms.Form):
 
     def save(self):
         user = User.objects.create_user(**self.cleaned_data)
-        user.is_active = False  # for confirmation email
+        # user.is_active = False  # for confirmation email
         user.save()
         return user
 

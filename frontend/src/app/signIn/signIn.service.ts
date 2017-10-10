@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import * as Response from '../common/response'
@@ -9,29 +9,28 @@ export class SignInService {
 
     constructor(private $http: Http) { }
 
-    signIn(email: string, password: string): Response.Body {
+    signIn(username: string, password: string): Response.Body {
         let response: Response.Body = new Response.Body();
-        response = this.sendData(email, password);
+        response = this.sendData(username, password);
         return response;
     }
 
-    sendData(email: string, password: string): Response.Body {
+    sendData(username: string, password: string): Response.Body {
         const body = {
-            'email': email,
+            'username': username,
             'password': password
         };
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
         let response = new Response.Body();
-        this.$http.post('http://localhost:8000/api/authentification/login/', body).subscribe(
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        this.$http.post('http://localhost:8000/api/authentification/login/', body, options).subscribe(
             data => {
                 data = data.json()
-                alert(data['status']);
                 response.status = data['status'].toString();
-                if (response.status === Response.successful) {
-                    alert('petux');
-                    // return response;
+                if (response.status === Response.error) {
+                    // TODO: catch error from server and set incorrect field
                 }
-
-                // TODO: catch error from server and set incorrect field
             },
             err => {
                 showErrorToast(serverNotRespone);

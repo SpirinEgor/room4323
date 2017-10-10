@@ -77,8 +77,8 @@ export class SignUpDialog {
         document.getElementById('repeatedPasswordError').innerHTML = '';
         let repField = document.getElementById('repeatedPasswordField');
         repField.classList.remove('mat-form-field-invalid');
-
     }
+
     setInvalidRepeat() {
         document.getElementById('repeatedPasswordError').innerHTML = 'Passwords do not match';
         let input = document.getElementById('repeatedPasswordInput');

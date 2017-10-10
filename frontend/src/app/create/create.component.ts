@@ -1,16 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CreateAlgorithmService } from './create.service';
 
 @Component({
     selector: 'create',
     templateUrl: `./create.html`,
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
 
     algorithm = '';
     rowCount = 20;
+    categories: string[] = [];
 
     constructor(private createAlgorithmService: CreateAlgorithmService) { }
+
+    ngOnInit() {
+        this.getAllCategories();
+    }
+
+    getAllCategories() {
+        this.createAlgorithmService.getCategories().then(
+            allCategories => {
+                const categories = allCategories.allCategories;
+                for (let key of categories) {
+                    this.categories.push(key);
+                }
+            }
+        )
+    }
 
     update(value: string) {
         let createdAlgorithm = document.getElementsByClassName('created-algorithm')[0];

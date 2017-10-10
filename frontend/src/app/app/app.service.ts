@@ -1,3 +1,4 @@
+import { successful } from './../common/response';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -19,7 +20,7 @@ export class AppService {
                     .toPromise()
                     .then(
                         response => {
-                            if (response.json().status !== 'ok') {
+                            if (response.json().status !== successful) {
                                 Toast.showErrorToast(Toast.serverNotRespone);
                             }
                         }

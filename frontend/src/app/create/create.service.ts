@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import * as Toast from '../common/toast';
 import * as Response from '../common/response';
 
@@ -27,13 +27,16 @@ export class CreateAlgorithmService {
                     .catch(this.handleError);
     }
 
-    createAlgorithm(newAlgorithm: string, title: string, categorie: string) {
+    createAlgorithm(newAlgorithm: string, title: string, category: string) {
         const body = {
             'algorithm': newAlgorithm,
             'title': title,
-            'categorie': categorie
+            'category': category
         };
-        this.$http.post('http://localhost:8000/api/article/create', body).subscribe(
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        this.$http.post('http://localhost:8000/api/article/create', body, options).subscribe(
             data => {
                 data = data.json()
                 if (data.status.toString() === Response.error) {

@@ -30,7 +30,7 @@ export class SingleAlgorithmComponent implements OnInit {
             }
 
             let algorithmField = document.getElementsByClassName('algorithm')[0];
-            algorithmField.innerHTML = this.algorithm.text;
+            algorithmField.innerHTML = this.algorithm.algorithm;
             MathJax.Hub.Queue(['Typeset', MathJax.Hub, algorithmField]);
         });
     }

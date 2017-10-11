@@ -3,17 +3,18 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from articles.models import *
 from JsonDictConvertation import *
+from django.views.decorators.csrf import csrf_exempt
 
-shortcuts = {'edited': {'message': 'edited', 'code': ''},
-             'created': {'message': 'created', 'code': ''},
-             'articleDoesNotExist': {'message': 'article DoesNotExist', "code": ''},
-             'deleted': {'message': 'deleted', "code": ''},
-             'onModeration': {'message': 'On moderation', 'code': ''},
-             'approved': {'message': 'approved', "code": ''},
-             'permissionError': {'code': '', 'message': 'PermissionError'},
-             'wrongRequestMethod': {'message': 'Wrong request.Method', "code": ''},
-             'invalidCategory': {'message': 'Invalid Category', 'code': ''},
-             'wrongArguments': {'message': 'Wrong Arguments', 'code': ''}
+shortcuts = {'edited': {'message': 'edited', 'status': ''},
+             'created': {'message': 'created', 'status': 'OK'},
+             'articleDoesNotExist': {'message': 'article DoesNotExist', "status": ''},
+             'deleted': {'message': 'deleted', "status": ''},
+             'onModeration': {'message': 'On moderation', 'status': ''},
+             'approved': {'message': 'approved', "status": ''},
+             'permissionError': {'status': '', 'message': 'PermissionError'},
+             'wrongRequestMethod': {'message': 'Wrong request.Method', "status": ''},
+             'invalidCategory': {'message': 'Invalid Category', 'status': ''},
+             'wrongArguments': {'message': 'Wrong Arguments', 'status': ''}
              }
 
 
@@ -21,7 +22,7 @@ def HttpResponseJson(data):
     return HttpResponse(convertFromDictToJson(data),
                         content_type='application/json')
 
-
+@csrf_exempt
 @requiredJsonAndPost
 @staffMemberRequiredJson
 def editArticle(request, slug):
@@ -45,13 +46,14 @@ def editArticle(request, slug):
     else:
         return HttpResponse(errors, content_type='application/json')
 
-
+@csrf_exempt
 @requiredJsonAndPost
 @loginRequiredJson
 def createArticle(request):
     data = convertFromJsonToDict(request)
     if not Category.objects.filter(name=data['category']).exists():
-        return HttpResponseJson(shortcuts['invalidCategory'])
+        cat = Category(name=data['category'])
+        cat.save()
     form = ArticleForm(data)
     errors = form.errors.as_json()
     if form.is_valid():

@@ -3,7 +3,7 @@ export class SingleAlgorithm {
     category: string;
     id: number;
     rating: number;
-    text: string;
+    algorithm: string;
     title: string;
-    date = '01.01.2017';
+    created: string;
 }

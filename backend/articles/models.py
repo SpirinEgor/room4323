@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.template.defaultfilters import slugify
-
+from django.utils import timezone
+import datetime
 
 class ArticleManager(models.Manager):
     def getAllArticlesTitle(self,approved):
@@ -26,7 +27,7 @@ class Category(models.Model):
 class Article(models.Model):
     objects = ArticleManager()
     title = models.CharField(max_length=90, unique=True, verbose_name='Title')
-    text = models.TextField(verbose_name="text")
+    algorithm = models.TextField(verbose_name="algorithm")
     category = models.ForeignKey(Category)
     rating = models.FloatField(default=0.0)
     author = models.ForeignKey(User, default=1, verbose_name="Author")  # 1-admin
@@ -49,7 +50,7 @@ class Article(models.Model):
 
     def toDict(self):
         return dict(author=self.author.username, title=self.title, rating=self.rating,
-                    text=self.text, category=self.category.name, id=self.id,created=self.created,updated=self.updated)
+                    algorithm=self.algorithm, category=self.category.name, id=self.id,created=str(self.created.strftime('%d-%m-%y')))
 
     class Meta:
         verbose_name_plural = 'Articles'
@@ -71,7 +72,7 @@ class Comment(models.Model):
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ('text', 'title')
+        fields = ('algorithm', 'title')
 
 
 class CommentForm(ModelForm):

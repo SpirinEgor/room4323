@@ -28,7 +28,9 @@ export class AppComponent implements OnInit {
         });
         dialog.afterClosed().subscribe(result => {
             this.updatePage();
-            location.reload();
+            if (!this.login) {
+                // location.reload();
+            }
         });
     }
 

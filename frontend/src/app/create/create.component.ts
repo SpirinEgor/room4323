@@ -9,7 +9,9 @@ export class CreateComponent implements OnInit {
 
     algorithm = '';
     rowCount = 20;
-    categories: string[] = [];
+    categories: string[] = [''];
+    title = '';
+    categorie = '';
 
     constructor(private createAlgorithmService: CreateAlgorithmService) { }
 
@@ -55,7 +57,7 @@ export class CreateComponent implements OnInit {
     }
 
     createAlgorithm(): void {
-        this.createAlgorithmService.createAlgorithm(this.algorithm);
+        this.createAlgorithmService.createAlgorithm(this.algorithm, this.title, this.categorie);
     }
 
 }

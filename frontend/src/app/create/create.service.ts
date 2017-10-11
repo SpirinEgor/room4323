@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import * as Toast from '../common/toast';
-import { successful } from '../common/response';
+import * as Response from '../common/response';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -18,20 +18,34 @@ export class CreateAlgorithmService {
         return this.$http.get('http://localhost:8000/api/article/categories/all')
                     .toPromise()
                     .then(response => {
-                        if (response.json().status !== successful) {
+                        if (response.json().status !== Response.successful) {
                             Toast.showErrorToast(Toast.serverNotRespone);
                         } else {
-                            return response.json().allCategories;
+                            return response.json().result;
                         }
                     })
                     .catch(this.handleError);
     }
 
-    createAlgorithm(newAlgorithm: string) {
+    createAlgorithm(newAlgorithm: string, title: string, categorie: string) {
         const body = {
-            'algorithm': newAlgorithm
+            'algorithm': newAlgorithm,
+            'title': title,
+            'categorie': categorie
         };
-        this.$http.post('/api/createAlgorithm', body).subscribe();
+        this.$http.post('http://localhost:8000/api/article/create', body).subscribe(
+            data => {
+                data = data.json()
+                if (data.status.toString() === Response.error) {
+                    // TODO: catch error from server and show error
+                } else {
+                    Toast.showSuccToast(Toast.createdAlgorithm);
+                }
+            },
+            err => {
+                Toast.showErrorToast(Toast.serverNotRespone);
+            }
+        );
     }
 
 }

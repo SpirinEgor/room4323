@@ -23,10 +23,12 @@ export class AppComponent implements OnInit {
     }
 
     openSignInDialog(): void {
-        this.signInDialog.open(SignInDialog, {
+        let dialog = this.signInDialog.open(SignInDialog, {
             width: '600px'
-        }).afterClosed().subscribe(result => {
+        });
+        dialog.afterClosed().subscribe(result => {
             this.updatePage();
+            location.reload();
         });
     }
 

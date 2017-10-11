@@ -28,7 +28,8 @@ export class SignUpService {
         let response = new Response.Body();
         this.$http.post('http://localhost:8000/api/authentification/signup/', body).subscribe(
             data => {
-                response.status = data['result']['status'];
+                data = data.json();
+                response.status = data['status'].toString();
                 if (response.status === Response.successful) {
                     return response;
                 }

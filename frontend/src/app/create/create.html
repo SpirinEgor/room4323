@@ -1,7 +1,23 @@
 <div class="create mdl-grid full-height">
     <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Write the algorithm here using the TeX-syntax</h2>
+            <h2 class="mdl-card__title-text mr-2">Choose the categorie of the algorithm:</h2>
+            <select [(ngModel)]="categorie" class="custom-select mr-2">
+                <option *ngFor="let categorie of categories">
+                    {{ categorie }}
+                </option>
+            </select>
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text mr-2">or write your own:</h2>
+            <input placeholder="Categorie" [(ngModel)]="categorie" type="text">
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text mr-2">Write the name of the algorithm:</h2>
+            <input placeholder="Title" [(ngModel)]="title" type="text">
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Write the algorithm here using the TeX-syntax:</h2>
         </div>
         <div class="mdl-card__supporting-text full-width">
             <div class="mdl-textfield mdl-js-textfield full-width">
@@ -12,7 +28,10 @@
     </div>
     <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">This is how your algorithm will look like</h2>
+            <h2 class="mdl-card__title-text">This is how your algorithm will look like:</h2>
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text"><strong>{{ categorie }} :: {{ title }}</strong></h2>
         </div>
         <div class="mdl-card__supporting-text full-width">
             <div class="mdl-textfield mdl-js-textfield full-width">

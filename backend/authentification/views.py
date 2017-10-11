@@ -39,7 +39,16 @@ def signupUser(request):
     if request.user.is_authenticated():
         return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'Already logged in'}),
                             content_type='application/json')
-    form = SignUpForm(convertFromJsonToDict(request))
+    data = convertFromJsonToDict(request)
+    if User.objects.filter(username=data['username']).exists():
+        return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'This username already used'}),
+                            content_type='application/json')
+    if User.objects.filter(email=data['email']).exists():
+        return HttpResponse(convertFromDictToJson({'status': "FAIL", 'message': 'This email already used'}),
+                            content_type='application/json')
+
+
+    form = SignUpForm(data)
     errors = form.errors.as_json()
     if form.is_valid():
         user = form.save()
@@ -54,7 +63,7 @@ def signupUser(request):
         # or debug in settings.py EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
         return HttpResponse(convertFromDictToJson({'status': "OK", 'message': 'Activate Your Account'}),
                             content_type='application/json')
-    return HttpResponse(errors, content_type='application/json')
+    return HttpResponse(convertFromDictToJson({'status':'Fail','errors':json.loads(errors),'message':'Error'}), content_type='application/json')
 
 
 def logoutUser(request):

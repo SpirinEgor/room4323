@@ -5,16 +5,16 @@ from articles.models import *
 from JsonDictConvertation import *
 from django.views.decorators.csrf import csrf_exempt
 
-shortcuts = {'edited': {'message': 'edited', 'status': ''},
+shortcuts = {'edited': {'message': 'edited', 'status': 'OK'},
              'created': {'message': 'created', 'status': 'OK'},
-             'articleDoesNotExist': {'message': 'article DoesNotExist', "status": ''},
-             'deleted': {'message': 'deleted', "status": ''},
-             'onModeration': {'message': 'On moderation', 'status': ''},
-             'approved': {'message': 'approved', "status": ''},
-             'permissionError': {'status': '', 'message': 'PermissionError'},
-             'wrongRequestMethod': {'message': 'Wrong request.Method', "status": ''},
-             'invalidCategory': {'message': 'Invalid Category', 'status': ''},
-             'wrongArguments': {'message': 'Wrong Arguments', 'status': ''}
+             'articleDoesNotExist': {'message': 'article DoesNotExist', "status": 'FAIL'},
+             'deleted': {'message': 'deleted', 'status': 'OK'},
+             'onModeration': {'message': 'On moderation', 'status': 'FAIL'},
+             'approved': {'message': 'approved', 'status': 'OK'},
+             'permissionError': {'status': 'FAIL', 'message': 'PermissionError'},
+             'wrongRequestMethod': {'message': 'Wrong request.Method', 'status': 'FAIL'},
+             'invalidCategory': {'message': 'Invalid Category', 'status': 'FAIL'},
+             'wrongArguments': {'message': 'Wrong Arguments', 'status': 'FAIL'}
              }
 
 
@@ -100,7 +100,9 @@ def rateArticle(request, slug, score):
 
 
 def getAllArticlesTitle(request):
-    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=True), 'status': 'OK'}
+    result = Article.objects.getAllArticlesTitle(approved=True)
+    result = {k: v for (k, v) in result.items() if v is not '[]'}
+    dictionary = {'result':result , 'status': 'OK'}
     return HttpResponseJson(dictionary)
 
 

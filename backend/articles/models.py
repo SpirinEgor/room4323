@@ -10,7 +10,10 @@ class ArticleManager(models.Manager):
         querySet = self.filter(approved=approved)
         dictionary = {}
         for category in Category.objects.all():
-            dictionary[category.name] = list(querySet.filter(category=category).values_list('title', flat=True))
+            val = list(querySet.filter(category=category).values_list('title', flat=True))
+            if val == []:
+                continue
+            dictionary[category.name] = val 
         return dictionary
 
 

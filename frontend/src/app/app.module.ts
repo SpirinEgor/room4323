@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AllAlgorithmsService } from './allAlgorithms/allAlgorithms.service';
-import { CreateAlgorithmService } from './create/create.service';
+import { OfferAlgorithmService } from './offer/offer.service';
 import { SingleAlgorithmService} from './singleAlgorithm/singleAlgorithm.service';
 import { SignInService } from './signIn/signIn.service';
 import { SignUpService} from './signUp/signUp.service';
@@ -18,7 +18,7 @@ import { AppService } from './app/app.service';
 
 import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
 import { AppComponent } from './app/app.component';
-import { CreateComponent } from './create/create.component';
+import { OfferComponent } from './offer/offer.component';
 import { SingleAlgorithmComponent} from './singleAlgorithm/singleAlgorithm.component';
 import { SignInDialog } from './signIn/signIn.component';
 import { SignUpDialog } from './signUp/signUp.component';
@@ -37,14 +37,14 @@ import { SignUpDialog } from './signUp/signUp.component';
   declarations: [
     AllAlgorithmsComponent,
     AppComponent,
-    CreateComponent,
+    OfferComponent,
     SingleAlgorithmComponent,
     SignInDialog,
     SignUpDialog,
   ],
   providers: [
     AllAlgorithmsService,
-    CreateAlgorithmService,
+    OfferAlgorithmService,
     SingleAlgorithmService,
     SignInService,
     SignUpService,

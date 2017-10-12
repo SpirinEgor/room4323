@@ -1,0 +1,90 @@
+import { Component, OnInit } from '@angular/core';
+import { OfferAlgorithmService } from './offer.service';
+import { Router } from '@angular/router';
+
+import { error } from '../common/response';
+import { showInfoToast, showSuccToast, showErrorToast, serverNotRespone } from '../common/toast';
+
+@Component({
+    selector: 'offer',
+    templateUrl: `./offer.html`,
+})
+export class OfferComponent implements OnInit {
+
+    algorithm = '';
+    rowCount = 20;
+    categories: string[] = [''];
+    title = '';
+    category = '';
+
+    constructor(private offerAlgorithmService: OfferAlgorithmService,
+                private router: Router) { }
+
+    ngOnInit() {
+        this.getAllCategories();
+    }
+
+    getAllCategories() {
+        this.offerAlgorithmService.getCategories().then(
+            allCategories => {
+                const categories = allCategories.allCategories;
+                for (let key of categories) {
+                    this.categories.push(key);
+                }
+            }
+        )
+    }
+
+    update(value: string) {
+        let offeredAlgorithm = document.getElementsByClassName('offered-algorithm')[0];
+        offeredAlgorithm.innerHTML = value;
+        MathJax.Hub.Queue(['Typeset', MathJax.Hub, offeredAlgorithm]);
+        this.algorithm = value;
+        this.rowCount = this.max(20, this.getRowCount(this.algorithm));
+    }
+
+    max(a: number, b: number) {
+        if (a > b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    getRowCount(value: string) {
+        let rowCount = 0;
+        for (let char of value) {
+            if (char === '\n') {
+                ++rowCount;
+            }
+        }
+        return rowCount + 1;
+    }
+
+    offerAlgorithm(): void {
+        if (this.title === '') {
+            showInfoToast('Please, write title for your algorithm.');
+        } else if (this.category === '') {
+            showInfoToast('Please, choose or write category for your algorithm.');
+        } else if (this.algorithm === '') {
+            showInfoToast('You forget to write algorithm.');
+        } else {
+            let result = this.offerAlgorithmService.offerAlgorithm(this.algorithm, this.title, this.category);
+            result.subscribe(
+                data => {
+                    let status = data.json().status.toString();
+                    if (status === error) {
+                        showErrorToast(data.json().message.toString());
+                    } else {
+                        showSuccToast('Your algorithm was successfuly offered. Wait for moderator to check it.');
+                        this.router.navigate(['']);
+                    }
+                },
+                err => {
+                    showErrorToast(serverNotRespone);
+                }
+            );
+        }
+    }
+
+}

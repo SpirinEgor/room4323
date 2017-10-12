@@ -64,7 +64,7 @@ def createArticle(request):
         article.save()
         return HttpResponseJson(shortcuts['created'])
     key,num = list(errors.items())[0]
-    return HttpResponse(convertFromDictToJson({'status':'FAIL','message':str(key)+':'+str(errors[str(key)][0])}), content_type='application/json')
+    return HttpResponse(convertFromDictToJson({'status':'FAIL','message':str(errors[str(key)][0])}), content_type='application/json')
 
 
 @staffMemberRequiredJson

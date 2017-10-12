@@ -1,5 +1,5 @@
 import { successful } from './../common/response';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import * as Toast from '../common/toast';
@@ -16,7 +16,10 @@ export class AppService {
     }
 
     logOut(): void {
-        this.$http.get('http://localhost:8000/api/authentification/logout/')
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        this.$http.get('http://localhost:8000/api/authentification/logout/', options)
                     .toPromise()
                     .then(
                         response => {

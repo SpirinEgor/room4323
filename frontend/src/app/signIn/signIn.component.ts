@@ -5,7 +5,7 @@ import { SignInService } from './signIn.service';
 import { FormControl, Validators } from '@angular/forms';
 
 import * as Response from '../common/response';
-import { showErrorToast } from '../common/toast';
+import { showErrorToast, showErrorDialogToast, serverNotRespone } from '../common/toast';
 
 
 @Component({
@@ -41,12 +41,21 @@ export class SignInDialog {
 
     onSignInClick(): void {
         if (document.getElementById('error') == null) {
-            const result: Response.Body = this.signInService.signIn(this.username, this.password);
-            if (result.status === Response.successful) {
-                showErrorToast('incorrect field');
-            } else {
-                this.onNoClick();
-            }
+            const result = this.signInService.signIn(this.username, this.password);
+            result.subscribe(
+                data => {
+                    let status = data.json().status.toString();
+                    if (status === Response.error) {
+                        showErrorDialogToast('incorrect username or password');
+                    } else {
+                        this.onNoClick();
+                    }
+                },
+                err => {
+                    showErrorToast(serverNotRespone);
+                    this.onNoClick();
+                }
+            )
         }
     }
 

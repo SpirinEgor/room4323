@@ -10,3 +10,4 @@ class ErrorFields {
 
 export const successful = 'OK';
 export const error = 'FAIL';
+export const server = 'SERVER';

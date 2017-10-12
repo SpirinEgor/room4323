@@ -5,7 +5,7 @@ def loginRequiredJson(func):
     def wrap(request, *args, **kwargs):
         if not request.user.is_authenticated():
             return HttpResponse(
-                convertFromDictToJson({'code': '', 'message': 'login_required'}), content_type='application/json')
+                convertFromDictToJson({'status': 'FAIL', 'message': 'This operation requires authorization'}), content_type='application/json')
         return func(request, *args, **kwargs)
 
     wrap.__doc__ = func.__doc__

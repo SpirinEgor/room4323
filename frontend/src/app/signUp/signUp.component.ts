@@ -4,10 +4,10 @@ import { SignUpService} from './signUp.service';
 import { FormControl, Validators } from '@angular/forms';
 
 import * as Response from '../common/response';
-import { showErrorToast } from '../common/toast';
+import { showErrorToast, showErrorDialogToast, serverNotRespone, showSuccToast } from '../common/toast';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const PASSWORD_REGEX = /^(?=.*\d).{6,15}$/
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+/;
+const PASSWORD_REGEX = /(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})/;
 
 @Component({
     selector: 'signUp-dialog',
@@ -63,13 +63,23 @@ export class SignUpDialog {
         }
 
         if (no_errors && this.signUpService.passwordMatchCheck(this.password, this.repeatedPassword)) {
-            const result: Response.Body = this.signUpService.signUp(this.firstName, this.secondName, this.username,
+            const result = this.signUpService.signUp(this.firstName, this.secondName, this.username,
                 this.email, this.password, this.repeatedPassword);
-            if (result.status === Response.successful) {
-                showErrorToast('incorrect field');
-            } else {
-                this.onNoClick();
-            }
+            result.subscribe(
+                data => {
+                    status = data.json().status.toString();
+                    if (status === Response.successful) {
+                        showSuccToast(`Thank you for registration! Don't forget to ACTIVATE your account.`);
+                        this.onNoClick();
+                    } else {
+                        showErrorDialogToast(data.json().message.toString());
+                    }
+                },
+                err => {
+                    showErrorToast(serverNotRespone);
+                    this.onNoClick();
+                }
+            )
         }
     }
 

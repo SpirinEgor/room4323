@@ -21,7 +21,7 @@ shortcuts = {'edited': {'message': 'edited', 'status': 'OK'},
 def HttpResponseJson(data):
     return HttpResponse(convertFromDictToJson(data),
                         content_type='application/json')
-
+##TODO CHange about cat
 @csrf_exempt
 @requiredJsonAndPost
 @staffMemberRequiredJson
@@ -44,7 +44,8 @@ def editArticle(request, slug):
         article.save()
         return HttpResponseJson(shortcuts['edited'])
     else:
-        return HttpResponse(errors, content_type='application/json')
+        return HttpResponse(convertFromDictToJson({'status':'FAIL','errors':json.loads(errors),'message':'Error'}), content_type='application/json')
+
 
 @csrf_exempt
 @requiredJsonAndPost
@@ -55,14 +56,15 @@ def createArticle(request):
         cat = Category(name=data['category'])
         cat.save()
     form = ArticleForm(data)
-    errors = form.errors.as_json()
+    errors = form.errors
     if form.is_valid():
         article = form.save(commit=False)
         article.author = request.user
         article.category = Category.objects.get(name=data['category'])
         article.save()
         return HttpResponseJson(shortcuts['created'])
-    return HttpResponse(errors, content_type='application/json')
+    key,num = list(errors.items())[0]
+    return HttpResponse(convertFromDictToJson({'status':'FAIL','message':str(key)+':'+str(errors[str(key)][0])}), content_type='application/json')
 
 
 @staffMemberRequiredJson
@@ -100,9 +102,7 @@ def rateArticle(request, slug, score):
 
 
 def getAllArticlesTitle(request):
-    result = Article.objects.getAllArticlesTitle(approved=True)
-    result = {k: v for (k, v) in result.items() if v is not '[]'}
-    dictionary = {'result':result , 'status': 'OK'}
+    dictionary = {'result': Article.objects.getAllArticlesTitle(approved=True), 'status': 'OK'}
     return HttpResponseJson(dictionary)
 
 
@@ -146,7 +146,8 @@ def commentArticle(request, slug):
         comment.article = article
         comment.save()
         return HttpResponseJson(shortcuts['created'])
-    return HttpResponse(errors, content_type='application/json')
+    return HttpResponse(convertFromDictToJson({'status':'FAIL','errors':json.loads(errors),'message':'Error'}), content_type='application/json')
+
 
 
 #

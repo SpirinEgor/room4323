@@ -49,7 +49,7 @@ def signupUser(request):
 
 
     form = SignUpForm(data)
-    errors = form.errors.as_json()
+    errors = form.errors
     if form.is_valid():
         user = form.save()
         subject = 'Activate Your Account'
@@ -63,7 +63,8 @@ def signupUser(request):
         # or debug in settings.py EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
         return HttpResponse(convertFromDictToJson({'status': "OK", 'message': 'Activate Your Account'}),
                             content_type='application/json')
-    return HttpResponse(convertFromDictToJson({'status':'Fail','errors':json.loads(errors),'message':'Error'}), content_type='application/json')
+    key,num = list(errors.items())[0]
+    return HttpResponse(convertFromDictToJson({'status':'Fail','message':str(key)+':'+str(errors[str(key)][0])}), content_type='application/json')
 
 
 def logoutUser(request):

@@ -69,7 +69,7 @@ export class SignUpDialog {
                 data => {
                     status = data.json().status.toString();
                     if (status === Response.successful) {
-                        showSuccToast(`Thank you for registration! Don't forget to ACTIVATE your account.`);
+                        showSuccToast(`Thank you for registration! You can sign in now.`);
                         this.onNoClick();
                     } else {
                         showErrorDialogToast(data.json().message.toString());

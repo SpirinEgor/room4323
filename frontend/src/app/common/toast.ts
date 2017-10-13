@@ -19,7 +19,7 @@ export function showInfoToast(message: string) {
 }
 
 export const serverNotRespone =
-    `Server is not response.
+    `No response from server.
      Try again later...`;
 
 export const createdAlgorithm =

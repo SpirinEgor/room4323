@@ -15,7 +15,7 @@ export class OfferAlgorithmService {
     }
 
     getCategories() {
-        return this.$http.get('http://localhost:8000/api/article/categories/all')
+        return this.$http.get('http://api.room4323.study/api/article/categories/all')
                     .toPromise()
                     .then(response => {
                         if (response.json().status !== Response.successful) {
@@ -36,7 +36,7 @@ export class OfferAlgorithmService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers, withCredentials: true });
-        return this.$http.post('http://localhost:8000/api/article/create', body, options);
+        return this.$http.post('http://api.room4323.study/api/article/create', body, options);
     }
 
 }

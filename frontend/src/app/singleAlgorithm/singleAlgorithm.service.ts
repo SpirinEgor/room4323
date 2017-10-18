@@ -14,7 +14,7 @@ export class SingleAlgorithmService {
    }
 
     getAlgorithm(slug: string) {
-        return this.$http.get(`http://localhost:8000/api/article/${slug}/get`)
+        return this.$http.get(`http://api.room4323.study/api/article/${slug}/get`)
                         .toPromise()
                         .then(
                             response => {

@@ -20,7 +20,7 @@ export class SignUpService {
             'email': email,
             'password': password,
         };
-        return this.$http.post('http://localhost:8000/api/authentification/signup/', body);
+        return this.$http.post('http://api.room4323.study/api/authentification/signup/', body);
     }
 
     passwordMatchCheck(password: string, repeatedPassword: string): boolean {

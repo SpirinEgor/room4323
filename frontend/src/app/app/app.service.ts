@@ -19,7 +19,7 @@ export class AppService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers, withCredentials: true });
-        this.$http.get('http://localhost:8000/api/authentification/logout/', options)
+        this.$http.get('http://api.room4323.study/api/authentification/logout/', options)
                     .toPromise()
                     .then(
                         response => {

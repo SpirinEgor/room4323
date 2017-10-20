@@ -18,7 +18,7 @@ export class SignInService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers, withCredentials: true });
-        return this.$http.post('http://localhost:8000/api/authentification/login/', body, options);
+        return this.$http.post('http://api.room4323.study/api/authentification/login/', body, options);
     }
 
 }

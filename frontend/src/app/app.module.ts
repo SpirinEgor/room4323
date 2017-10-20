@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule} from '@angular/forms';
-import { ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientXsrfModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
@@ -27,6 +29,8 @@ import { SignUpDialog } from './signUp/signUp.component';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
+    HttpClientXsrfModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
@@ -40,7 +44,7 @@ import { SignUpDialog } from './signUp/signUp.component';
     OfferComponent,
     SingleAlgorithmComponent,
     SignInDialog,
-    SignUpDialog,
+    SignUpDialog
   ],
   providers: [
     AllAlgorithmsService,

@@ -16,6 +16,7 @@
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+      '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
       '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
       '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
       '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
@@ -26,6 +27,7 @@
       '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
       '@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
       '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
+      'tslib': 'npm:tslib/tslib.js',
       // CDK individual packages
       '@angular/cdk/platform': 'npm:@angular/cdk/bundles/cdk-platform.umd.js',
       '@angular/cdk/a11y': 'npm:@angular/cdk/bundles/cdk-a11y.umd.js',
@@ -58,7 +60,7 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      }
+      },
     }
   });
 })(this);

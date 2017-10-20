@@ -69,7 +69,7 @@ export class SignUpDialog {
                 data => {
                     status = data.json().status.toString();
                     if (status === Response.successful) {
-                        showSuccToast(`Thank you for registration! Don't forget to ACTIVATE your account.`);
+                        showSuccToast(`Thank you for registration! You can sign in now.`);
                         this.onNoClick();
                     } else {
                         showErrorDialogToast(data.json().message.toString());
@@ -84,7 +84,10 @@ export class SignUpDialog {
     }
 
     clearMdHint() { // same KOSTYL repair it smn
-        document.getElementById('repeatedPasswordError').innerHTML = '';
+        let hint = document.getElementById('repeatedPasswordError');
+        if (! hint == null) {
+            hint.innerHTML = '';
+        }
         let repField = document.getElementById('repeatedPasswordField');
         repField.classList.remove('mat-form-field-invalid');
     }

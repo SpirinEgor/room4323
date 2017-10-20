@@ -12,7 +12,7 @@ import { showInfoToast, showSuccToast, showErrorToast, serverNotRespone } from '
 export class OfferComponent implements OnInit {
 
     algorithm = '';
-    rowCount = 20;
+    rowCount = 5;
     categories: string[] = [''];
     title = '';
     category = '';
@@ -40,7 +40,7 @@ export class OfferComponent implements OnInit {
         offeredAlgorithm.innerHTML = value;
         MathJax.Hub.Queue(['Typeset', MathJax.Hub, offeredAlgorithm]);
         this.algorithm = value;
-        this.rowCount = this.max(20, this.getRowCount(this.algorithm));
+        this.rowCount = this.max(5, this.getRowCount(this.algorithm));
     }
 
     max(a: number, b: number) {

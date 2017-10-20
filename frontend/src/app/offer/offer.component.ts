@@ -38,8 +38,11 @@ export class OfferComponent implements OnInit {
     update(value: string) {
         let offeredAlgorithm = document.getElementsByClassName('offered-algorithm')[0];
         offeredAlgorithm.innerHTML = value;
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
         MathJax.Hub.Queue(['Typeset', MathJax.Hub, offeredAlgorithm]);
-        this.algorithm = value;
+        this.algorithm = value
         this.rowCount = this.max(5, this.getRowCount(this.algorithm));
     }
 

@@ -14,16 +14,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AllAlgorithmsService } from './allAlgorithms/allAlgorithms.service';
 import { OfferAlgorithmService } from './offer/offer.service';
 import { SingleAlgorithmService} from './singleAlgorithm/singleAlgorithm.service';
-import { SignInService } from './signIn/signIn.service';
-import { SignUpService} from './signUp/signUp.service';
+// import { SignInService } from './signIn/signIn.service';
+// import { SignUpService} from './signUp/signUp.service';
 import { AppService } from './app/app.service';
 
 import { AllAlgorithmsComponent }  from './allAlgorithms/allAlgorithms.component';
 import { AppComponent } from './app/app.component';
 import { OfferComponent } from './offer/offer.component';
 import { SingleAlgorithmComponent} from './singleAlgorithm/singleAlgorithm.component';
-import { SignInDialog } from './signIn/signIn.component';
-import { SignUpDialog } from './signUp/signUp.component';
+// import { SignInDialog } from './signIn/signIn.component';
+// import { SignUpDialog } from './signUp/signUp.component';
 
 @NgModule({
   imports: [
@@ -42,24 +42,24 @@ import { SignUpDialog } from './signUp/signUp.component';
     AllAlgorithmsComponent,
     AppComponent,
     OfferComponent,
-    SingleAlgorithmComponent,
-    SignInDialog,
-    SignUpDialog
+    SingleAlgorithmComponent
+    // SignInDialog,
+    // SignUpDialog
   ],
   providers: [
     AllAlgorithmsService,
     OfferAlgorithmService,
     SingleAlgorithmService,
-    SignInService,
-    SignUpService,
+    // SignInService,
+    // SignUpService,
     AppService
   ],
   bootstrap: [
     AppComponent
   ],
   entryComponents: [
-    SignInDialog,
-    SignUpDialog,
+    // SignInDialog,
+    // SignUpDialog,
   ]
 })
 export class AppModule { }

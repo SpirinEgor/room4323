@@ -49,7 +49,7 @@ def editArticle(request, slug):
 
 @csrf_exempt
 @requiredJsonAndPost
-@loginRequiredJson
+#@loginRequiredJson
 def createArticle(request):
     data = convertFromJsonToDict(request)
     if not Category.objects.filter(name=data['category']).exists():
@@ -59,7 +59,7 @@ def createArticle(request):
     errors = form.errors
     if form.is_valid():
         article = form.save(commit=False)
-        article.author = request.user
+        article.author = User.objects.get(pk=1) #request.user
         article.category = Category.objects.get(name=data['category'])
         article.save()
         return HttpResponseJson(shortcuts['created'])
@@ -150,7 +150,7 @@ def commentArticle(request, slug):
 
 
 
-#
+
 @requiredJsonAndPost
 @loginRequiredJson
 def editComment(request, slug, comment_id):

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OfferAlgorithmService } from './offer.service';
-import { Router } from '@angular/router';
 
-import { error } from '../common/response';
-import { showInfoToast, showSuccToast, showErrorToast, serverNotRespone } from '../common/toast';
+import { showInfoToast } from '../common/toast';
 
 @Component({
     selector: 'offer',
@@ -17,8 +15,7 @@ export class OfferComponent implements OnInit {
     title = '';
     category = '';
 
-    constructor(private offerAlgorithmService: OfferAlgorithmService,
-                private router: Router) { }
+    constructor(private offerAlgorithmService: OfferAlgorithmService) { }
 
     ngOnInit() {
         this.getAllCategories();
@@ -38,8 +35,11 @@ export class OfferComponent implements OnInit {
     update(value: string) {
         let offeredAlgorithm = document.getElementsByClassName('offered-algorithm')[0];
         offeredAlgorithm.innerHTML = value;
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
         MathJax.Hub.Queue(['Typeset', MathJax.Hub, offeredAlgorithm]);
-        this.algorithm = value;
+        this.algorithm = value
         this.rowCount = this.max(5, this.getRowCount(this.algorithm));
     }
 
@@ -69,21 +69,7 @@ export class OfferComponent implements OnInit {
         } else if (this.algorithm === '') {
             showInfoToast('You forget to write algorithm.');
         } else {
-            let result = this.offerAlgorithmService.offerAlgorithm(this.algorithm, this.title, this.category);
-            result.subscribe(
-                data => {
-                    let status = data.json().status.toString();
-                    if (status === error) {
-                        showErrorToast(data.json().message.toString());
-                    } else {
-                        showSuccToast('Your algorithm was successfuly offered. Wait for moderator to check it.');
-                        this.router.navigate(['']);
-                    }
-                },
-                err => {
-                    showErrorToast(serverNotRespone);
-                }
-            );
+            this.offerAlgorithmService.offerAlgorithm(this.algorithm, this.title, this.category);
         }
     }
 

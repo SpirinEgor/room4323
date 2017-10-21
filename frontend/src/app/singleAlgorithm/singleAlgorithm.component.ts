@@ -31,6 +31,9 @@ export class SingleAlgorithmComponent implements OnInit {
 
             let algorithmField = document.getElementsByClassName('algorithm')[0];
             algorithmField.innerHTML = this.algorithm.algorithm;
+            $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
             MathJax.Hub.Queue(['Typeset', MathJax.Hub, algorithmField]);
         });
     }

@@ -48,10 +48,13 @@ def editArticle(request, slug):
 
 
 @csrf_exempt
-@requiredJsonAndPost
+#@requiredJsonAndPost
 #@loginRequiredJson
 def createArticle(request):
-    data = convertFromJsonToDict(request)
+    data = {'algorithm':request.GET.get('algorithm',''),
+            'category':request.GET.get('category',''),
+            'title':request.GET.get('title','')}
+    #data = convertFromJsonToDict(request)
     if not Category.objects.filter(name=data['category']).exists():
         cat = Category(name=data['category'])
         cat.save()
@@ -64,7 +67,7 @@ def createArticle(request):
         article.save()
         return HttpResponseJson(shortcuts['created'])
     key,num = list(errors.items())[0]
-    return HttpResponse(convertFromDictToJson({'status':'FAIL','message':str(errors[str(key)][0])}), content_type='application/json')
+    return HttpResponse(convertFromDictToJson({'status':'Fail','message':str(key)+':'+str(errors[str(key)][0])}), content_type='application/json')
 
 
 @staffMemberRequiredJson

@@ -10,7 +10,7 @@ class ArticleManager(models.Manager):
         querySet = self.filter(approved=approved)
         dictionary = {}
         for category in Category.objects.all():
-            val = list(querySet.filter(category=category).values_list('title', flat=True))
+            val = list(querySet.filter(category=category).values_list('title', 'slug'))
             if val == []:
                 continue
             dictionary[category.name] = val 
@@ -24,7 +24,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf-8')
 
 
 class Article(models.Model):
@@ -42,14 +42,15 @@ class Article(models.Model):
 
     # cahgne slugify from - to _
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        from unidecode import unidecode
+        self.slug = slugify(unidecode(self.title))
         if not self.id:
              self.created = timezone.now()
         self.updated = timezone.now()
         super(Article, self).save(*args, **kwargs)
         
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 
     def toDict(self):
         return dict(author=self.author.username, title=self.title, rating=self.rating,

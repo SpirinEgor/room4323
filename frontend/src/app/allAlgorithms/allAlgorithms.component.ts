@@ -19,8 +19,15 @@ export class AllAlgorithmsComponent implements OnInit {
                 for (let key of Object.keys(allAlgorithmsJSON)) {
                     let currentSection: AlgorithmsSection = {
                         theme: key,
-                        algorithms: allAlgorithmsJSON[key]
+                        algorithms: []
                     };
+                    for (let algo of allAlgorithmsJSON[key]) {
+                        let currentAlgorithm: Algorithm = {
+                            title: algo[0],
+                            slug: algo[1]
+                        }
+                        currentSection.algorithms.push(currentAlgorithm);
+                    }
                     this.allSections.push(currentSection);
                 }
            }
@@ -38,5 +45,10 @@ export class AllAlgorithmsComponent implements OnInit {
 
 class AlgorithmsSection {
     theme: string;
-    algorithms: string[];
+    algorithms: Algorithm[]
+}
+
+class Algorithm {
+    title: string;
+    slug: string;
 }

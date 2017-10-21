@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OfferAlgorithmService } from './offer.service';
+import { Router } from '@angular/router';
 
-import { showInfoToast } from '../common/toast';
+import * as Response from '../common/response';
+import * as Toast from '../common/toast';
 
 @Component({
     selector: 'offer',
@@ -15,7 +17,8 @@ export class OfferComponent implements OnInit {
     title = '';
     category = '';
 
-    constructor(private offerAlgorithmService: OfferAlgorithmService) { }
+    constructor(private offerAlgorithmService: OfferAlgorithmService,
+                private router: Router) { }
 
     ngOnInit() {
         this.getAllCategories();
@@ -63,13 +66,27 @@ export class OfferComponent implements OnInit {
 
     offerAlgorithm(): void {
         if (this.title === '') {
-            showInfoToast('Please, write title for your algorithm.');
+            Toast.showInfoToast('Please, write title for your algorithm.');
         } else if (this.category === '') {
-            showInfoToast('Please, choose or write category for your algorithm.');
+            Toast.showInfoToast('Please, choose or write category for your algorithm.');
         } else if (this.algorithm === '') {
-            showInfoToast('You forget to write algorithm.');
+            Toast.showInfoToast('You forget to write algorithm.');
         } else {
-            this.offerAlgorithmService.offerAlgorithm(this.algorithm, this.title, this.category);
+            let result = this.offerAlgorithmService.offerAlgorithm(this.algorithm, this.title, this.category);
+            result.subscribe(
+                data => {
+                    let status = data.json().status.toString();
+                    if (status === Response.error) {
+                        Toast.showErrorToast(data.json().message.toString());
+                    } else {
+                        Toast.showSuccToast('Your algorithm was successfuly offered. Wait for moderator to check it.');
+                        this.router.navigate(['']);
+                    }
+                },
+                err => {
+                    Toast.showErrorToast(Toast.serverNotRespone);
+                }
+            );
         }
     }
 

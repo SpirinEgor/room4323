@@ -48,13 +48,13 @@ def editArticle(request, slug):
 
 
 @csrf_exempt
-#@requiredJsonAndPost
+@requiredJsonAndPost
 #@loginRequiredJson
 def createArticle(request):
-    data = {'algorithm':request.GET.get('algorithm',''),
-            'category':request.GET.get('category',''),
-            'title':request.GET.get('title','')}
-    #data = convertFromJsonToDict(request)
+    # data = {'algorithm':request.GET.get('algorithm',''),
+    #         'category':request.GET.get('category',''),
+    #         'title':request.GET.get('title','')}
+    data = convertFromJsonToDict(request)
     if not Category.objects.filter(name=data['category']).exists():
         cat = Category(name=data['category'])
         cat.save()
@@ -81,6 +81,8 @@ def deleteArticle(request, slug):
 
 
 def getArticle(request, slug):
+    from unidecode import unidecode
+    slug = (unidecode(slug))
     article = get_object_or_404(Article, slug=slug)
     if not (article.approved or request.user.is_staff):
         return HttpResponseJson(shortcuts['onModeration']),

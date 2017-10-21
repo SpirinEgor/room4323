@@ -30,7 +30,7 @@ def staffMemberRequiredJson(func):
 def requiredJsonAndPost(func):
 
     def wrap(request, *args, **kwargs):
-        if request.content_type != 'application/json':
+        if request.content_type != 'application/x-www-form-urlencoded':
             return HttpResponse(convertFromDictToJson({'code': '', 'message': 'Wrong content_type'}),
                                 content_type='application/json')
         if request.method != "POST":

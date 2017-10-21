@@ -6,8 +6,8 @@
     </div>
     <div class="mdl-card__supporting-text">
       <div *ngFor="let algorithm of section.algorithms">
-        <a routerLink="/algorithm/{{makeSlug(algorithm)}}" routerLinkActive="active"
-            class="mdl-navigation__link"><u>{{algorithm}}</u><br></a>
+        <a routerLink="/algorithm/{{algorithm.slug}}" routerLinkActive="active"
+            class="mdl-navigation__link"><u>{{algorithm.title}}</u><br></a>
       </div>
     </div>
   </div>

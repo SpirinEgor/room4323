@@ -217,5 +217,6 @@ def getAllComments(request, slug):
 def getAllCategories(request):
     result=[]
     for cat in Category.objects.all():
-        result.append(cat.name)
+        if cat.article_set.filter(approved = True ).exists():
+            result.append(cat.name)
     return HttpResponseJson({'status':'OK','result':{'allCategories':result}})

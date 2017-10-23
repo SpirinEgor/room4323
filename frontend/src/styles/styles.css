@@ -1,18 +1,47 @@
 @import "./bootstrap/bootstrap.css";
 @import "./bootstrap/bootstrap-grid.css";
 @import "./bootstrap/bootstrap-reboot.css";
-@import "./vs.css";
+@import "./github.css";
 
 body {
-  background: url('../images/background.jpg') center / cover;
+  background-color: #d3e6f2 !important;
+}
+
+footer {
+  background-color: #75b8d9 !important;
+}
+
+.mdl-logo {
+  color: #000000 !important;
+}
+
+.mdl-textfield__input {
+  background-color: #ffffff !important;
+}
+
+a {
+  color: #000000 !important;
+}
+
+.mdl-card {
+  background-color: #a3cee6 !important;
+}
+
+.mdl-button {
+  background-color: #a3cee6 !important;
+  color: #000000 !important;
+}
+
+.mdl-card__supporting-text {
+  color: #000000 !important;
 }
 
 .mdl-layout__header {
-  background: url('../images/header.jpg') center / cover;
+  background: url('../images/header.jpg') center / 100%;
 }
 
 .mdl-layout__header-row {
-  color: white;
+  color: #000000;
 }
 
 .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {

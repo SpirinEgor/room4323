@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material';
 
 import { AppService } from './app.service';
-
+import { User } from '../common/user';
 import { getValueFromCookie, deleteCookie } from '../common/cookieWorker';
 
 @Component({
@@ -12,11 +12,12 @@ import { getValueFromCookie, deleteCookie } from '../common/cookieWorker';
 })
 export class AppComponent implements OnInit {
 
-    login = false;
-    username: string;
+    user: User;
 
     constructor(public signInDialog: MatDialog,
-                public appService: AppService) {}
+                public appService: AppService) {
+                    this.user = new User();
+                }
 
     ngOnInit() {
         this.updatePage();
@@ -41,10 +42,10 @@ export class AppComponent implements OnInit {
         let cookie = document.cookie;
         let value = getValueFromCookie(cookie, 'username');
         if (value !== '') {
-            this.login = true;
-            this.username = value;
+            this.user.isAuthorised = true;
+            this.user.username = value;
         } else {
-            this.login = false;
+            this.user.isAuthorised = false;
         }
     }
 }

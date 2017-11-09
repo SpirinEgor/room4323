@@ -1,0 +1,13 @@
+<div class="inline" *ngIf="!user.isAuthorised">
+    <div class="inline">
+        <button class="mr-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            type="button" (click)="onSignIn()">Sign In / Sign Up</button>
+    </div>
+</div>
+<div class="inline" *ngIf="user.isAuthorised">
+    <span>Hello, {{user.username}}!</span>
+    <div class="inline">
+        <button class="mr-2 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            type="button" (click)="onLogout()">Log out</button>
+    </div>
+</div>

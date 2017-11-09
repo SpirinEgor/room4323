@@ -9,4 +9,12 @@ export class UserMenu {
     @Input() user: User;
     @Output() onLogout = new EventEmitter();
     @Output() onSignIn = new EventEmitter();
+
+    signIn()  {
+        this.onSignIn.emit();
+    }
+
+    logout() {
+        this.onLogout.emit();
+    }
 }

@@ -9,13 +9,14 @@ class TestArticlesApp(TestCase):
     def setUp(self):
         self.client = Client()
         User.objects.create_superuser('nikita', 'dfj@mail.ru', 'dungeons')
-        User.objects.create_user(username='moderator', email='moderator@mail.ru', password='moderator', is_staff=True,
-                                 is_active=True, is_superuser=False)
-        User.objects.create_user(username='usual', email='usual@mail.ru', password='usualusual', is_staff=False,
-                                 is_active=True)
+        User.objects.create_user(username='moderator', email='moderator@mail.ru',
+                                    password='moderator', is_staff=True, is_active=True,
+                                    is_superuser=False)
+        User.objects.create_user(username='usual', email='usual@mail.ru', password='usualusual',
+                                    is_staff=False, is_active=True)
 
-        User.objects.create_user(username='inactive', email="inactive@mail.ru", password='inactiveuser', is_staff=False,
-                                 is_active=False)
+        User.objects.create_user(username='inactive', email="inactive@mail.ru", password='inactiveuser',
+                                    is_staff=False, is_active=False)
 
     def testCreateEditDelteArticleModerator(self):
         response = self.client.get('http://127.0.0.1:8000/api/authentification/auth?login=moderator&password=moderator')
